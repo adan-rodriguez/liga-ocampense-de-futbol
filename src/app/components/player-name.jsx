@@ -1,35 +1,20 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import { Suspense } from "react";
 import { getPlayer } from "../lib/players";
 
-const Loader = () => <span>Cargando...</span>;
-
-export function PlayerName({ player_id }) {
-  const [player, setPlayer] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchPlayer = async () => {
-      const { player, error } = await getPlayer(player_id);
-      if (error) {
-        setPlayer("Error");
-      } else {
-        setPlayer(player);
-      }
-      setLoading(false);
-    };
-
-    fetchPlayer();
-  }, []);
-
-  if (loading) {
-    return <Loader />;
-  }
+export async function FetchingPlayerName({ player_id }) {
+  const { player, error } = await getPlayer(player_id);
 
   return (
     <span>
-      {player ? `${player.firstname} ${player.lastname}` : "Desconocido"}
+      {error ? "Desconocido" : `${player.firstname} ${player.lastname}`}
     </span>
+  );
+}
+
+export function PlayerName({ player_id }) {
+  return (
+    <Suspense fallback={<span>Cargando...</span>}>
+      <FetchingPlayerName player_id={player_id} />
+    </Suspense>
   );
 }
