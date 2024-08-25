@@ -1,0 +1,18 @@
+.players_list {
+  position: absolute;
+  z-index: 9999;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.item_players_list {
+  padding: 0.25rem 0.5rem;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.3s;
+  cursor: pointer;
+
+  &:is(:hover, :focus-visible) {
+    background-color: #eee;
+  }
+}

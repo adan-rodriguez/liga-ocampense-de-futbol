@@ -1,0 +1,55 @@
+export const matches = [
+  {
+    match_id: 1,
+    home: 1,
+    away: 2,
+    tournament: 1,
+    round: "1",
+    datetime: "2024-08-04 16:00:00",
+    data_home_goals: [
+      { goal_id: 1, minute: 23, player: 5 },
+      { goal_id: 2, minute: 67, player: 4 },
+    ],
+    data_away_goals: [{ goal_id: 1, minute: 45, player: 87 }],
+  },
+  {
+    match_id: 2,
+    home: 3,
+    away: 4,
+    tournament: 1,
+    round: "2",
+    datetime: "2024-08-04 18:00:00",
+    data_home_goals: [
+      { goal_id: 1, minute: 12, player: 6 },
+      { goal_id: 2, minute: 44, player: 8 },
+      { goal_id: 3, minute: 78, player: 0 },
+    ],
+    data_away_goals: [
+      { goal_id: 1, minute: 39, player: 13 },
+      { goal_id: 2, minute: 82, player: 15 },
+    ],
+  },
+  {
+    match_id: 3,
+    home: 10,
+    away: 11,
+    tournament: 1,
+    round: "1",
+    datetime: "2024-08-05 16:00:00",
+    data_home_goals: [],
+    data_away_goals: [
+      { goal_id: 1, minute: 55, player: 24 },
+      { goal_id: 2, minute: 73, player: 21 },
+    ],
+  },
+  {
+    match_id: 4,
+    home: 12,
+    away: 13,
+    tournament: 1,
+    round: "2",
+    datetime: "2024-08-05 18:00:00",
+    data_home_goals: [{ goal_id: 1, minute: 66, player: 30 }],
+    data_away_goals: [{ goal_id: 1, minute: 19, player: 33 }],
+  },
+];
