@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/app/utils/supabase/server";
@@ -33,6 +33,6 @@ export async function login(formData) {
     return { error: "Email y/o contraseñas incorrectos." };
   }
 
-  revalidatePath("/", "layout");
+  // revalidatePath("/", "layout");
   redirect("/dashboard");
 }

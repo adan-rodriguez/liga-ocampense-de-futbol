@@ -13,9 +13,8 @@ export function GoalsForm({ label, team, updateData, deleteGoal }) {
   useEffect(() => {
     async function obtainPlayers() {
       setError("");
-      // resetData(goals);
 
-      // if (playersList[0]?.team_id == team) return;
+      if (!team || playersList[0]?.team == team) return;
 
       setLoading(true);
 
