@@ -1,6 +1,6 @@
 import { matchSchema } from "@/app/lib/schemas";
 import { createClient } from "@/app/utils/supabase/server";
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
   const supabase = createClient();
@@ -97,7 +97,7 @@ export async function POST(request) {
     );
   }
 
-  revalidateTag("matches");
+  revalidatePath("/");
 
   return new Response(
     JSON.stringify({ message: "Partido creado exitosamente" }),
