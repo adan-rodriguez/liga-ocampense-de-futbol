@@ -40,7 +40,11 @@ export async function ScorersTable({ matches }) {
 
   return (
     <div className={tableStyles.container}>
-      <table className={tableStyles.table} style={{ maxWidth: "500px" }}>
+      <table
+        className={`${tableStyles.table} shadow-inner shadow-black`}
+        style={{ maxWidth: "500px" }}
+      >
+        <caption>Goleadores</caption>
         <thead>
           <tr className={tableStyles.row}>
             <th className={tableStyles.head_cell} style={{ textAlign: "left" }}>

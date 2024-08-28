@@ -24,8 +24,21 @@
   height: 16px;
 }
 
-.team_name {
+.team_abbr {
   font-weight: 700;
+
+  @media (width >= 640px) {
+    display: none;
+  }
+}
+
+.team_name {
+  display: none;
+  font-weight: 700;
+
+  @media (width >= 640px) {
+    display: block;
+  }
 }
 
 .result_container {

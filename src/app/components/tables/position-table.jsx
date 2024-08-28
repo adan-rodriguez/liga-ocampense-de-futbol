@@ -71,7 +71,7 @@ export function PositionTable({ matches, teams }) {
 
   return (
     <div className={tableStyles.container}>
-      <table className={tableStyles.table}>
+      <table className={`${tableStyles.table} shadow-inner shadow-black`}>
         <thead>
           <tr className={tableStyles.row}>
             <th className={tableStyles.head_cell}>POS</th>

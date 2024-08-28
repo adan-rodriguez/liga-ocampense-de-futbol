@@ -1,11 +1,17 @@
 .btn {
   display: block;
   margin-inline: auto;
-  border: 1px solid #eee;
   border-radius: 4px;
   padding: 0.5rem 2rem;
+  background-color: var(--color-lof);
+  color: white;
+  transition: scale 0.3s;
 
   &:is(:hover, :focus-visible) {
-    background-color: #eee;
+    scale: 1.05;
+  }
+
+  &:active {
+    translate: 0 2px;
   }
 }

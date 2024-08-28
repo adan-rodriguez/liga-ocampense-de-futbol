@@ -21,10 +21,7 @@ export function Match({ match }) {
   const qty_away_goals = match.data_away_goals?.length;
 
   return (
-    <article
-      className={`${styles.card} shadow-md shadow-black`}
-      key={match.match_id}
-    >
+    <article className={`${styles.card} shadow`} key={match.match_id}>
       <div className={styles.team}>
         <img
           src={`escudos/${home.badge || "escudo-vacio.avif"}`}
@@ -32,6 +29,7 @@ export function Match({ match }) {
           className={styles.badge}
         />
         <p className={styles.team_name}>{home.short_name}</p>
+        <p className={styles.team_abbr}>{home.abbr}</p>
       </div>
 
       <div className={styles.result_container}>
@@ -47,6 +45,7 @@ export function Match({ match }) {
           className={styles.badge}
         />
         <p className={styles.team_name}>{away.short_name}</p>
+        <p className={styles.team_abbr}>{away.abbr}</p>
       </div>
 
       <div className={styles.players}>

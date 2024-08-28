@@ -5,6 +5,7 @@ import { rounds_reference } from "../data/rounds-reference";
 import { teams } from "../data/teams";
 import { rounds, zones } from "../data/torneo-placido-lelo-castillo";
 import { getMatches } from "../lib/matches";
+import styles from "./styles.module.css";
 
 export async function TorneoPlacidoLeloCastillo() {
   const { matches, error } = await getMatches();
@@ -82,7 +83,7 @@ function Zone({ name, matches }) {
 
         return (
           <details
-            name="round"
+            name={name}
             style={{
               marginBlock: "1rem",
               padding: "1rem",
@@ -91,13 +92,14 @@ function Zone({ name, matches }) {
             }}
             key={round}
             open={shouldOpen}
+            className={styles.details}
           >
             <summary
+              className={styles.summary}
               style={{
                 fontWeight: "bold",
                 fontSize: "14px",
                 cursor: "pointer",
-                marginBottom: "1rem",
               }}
             >
               {rounds_reference[round]}

@@ -1,10 +1,13 @@
 .container {
   overflow-x: auto;
+  scrollbar-width: thin;
 }
 
 .table {
   text-align: center;
   width: 100%;
+  background-color: #fff;
+  border-radius: 4px;
 }
 
 .row {

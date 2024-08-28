@@ -67,7 +67,7 @@ export function MatchForm({ teams }) {
   }, [home, away]);
 
   return (
-    <form onSubmit={handleSubmit} className="shadow-lg shadow-black">
+    <form onSubmit={handleSubmit} className="shadow-inner shadow-black">
       <h2>Agregar partido</h2>
 
       {/* Así es el formato del torneo actual. Puede variar en torneos futuros */}
