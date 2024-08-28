@@ -28,6 +28,7 @@ export async function ScorersTable({ matches }) {
   for (const player_id in goalCount) {
     if (player_id === "0") continue;
     const { player, error } = await getPlayer(player_id);
+    if (error) continue;
 
     scorers.push({
       ...player, // Información del jugador obtenida desde la base de datos
