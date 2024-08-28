@@ -265,7 +265,7 @@ export function MatchForm({ teams }) {
         </>
       )}
 
-      <button disabled={loading}>
+      <button type="submit" disabled={loading}>
         {loading ? "Agregando partido..." : "Agregar partido"}
       </button>
 

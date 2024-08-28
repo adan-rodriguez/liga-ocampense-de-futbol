@@ -1,0 +1,21 @@
+.container {
+  overflow-x: auto;
+}
+
+.table {
+  text-align: center;
+  width: 100%;
+}
+
+.row {
+  border-bottom: 1px solid var(--color-lof);
+}
+
+.row:last-child {
+  border: none;
+}
+
+.head_cell,
+.body_cell {
+  padding: 0.5rem 0.75rem;
+}

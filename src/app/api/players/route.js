@@ -46,20 +46,24 @@ export async function POST(request) {
 
   const supabase = createClient();
 
-  const { error: teamError } = await supabase
-    .from("teams")
-    .select()
-    .eq("team_id", validateData.team)
-    .single();
+  if (validateData.team) {
+    const { error: teamError } = await supabase
+      .from("teams")
+      .select()
+      .eq("team_id", validateData.team)
+      .single();
 
-  if (teamError) {
-    return new Response(
-      JSON.stringify({ error: "Los datos ingresados no se pudieron validar." }),
-      {
-        status: 400,
-        headers: { "Content-Type": "application/json;charset=UTF-8" },
-      }
-    );
+    if (teamError) {
+      return new Response(
+        JSON.stringify({
+          error: "Los datos ingresados no se pudieron validar.",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json;charset=UTF-8" },
+        }
+      );
+    }
   }
 
   const { error, status } = await supabase.from("players").insert(validateData);

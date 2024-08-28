@@ -1,5 +1,8 @@
-import { Matches } from "../components/matches";
+import { Matches } from "../components/matches/matches";
+import { PositionTable } from "../components/tables/position-table";
+import { ScorersTable } from "../components/tables/scorers-table";
 import { rounds_reference } from "../data/rounds-reference";
+import { teams } from "../data/teams";
 import { rounds, zones } from "../data/torneo-placido-lelo-castillo";
 import { getMatches } from "../lib/matches";
 
@@ -10,15 +13,38 @@ export async function TorneoPlacidoLeloCastillo() {
 
   return (
     <section>
-      <h2>Torneo Plácido &apos;Lelo&apos; Castillo</h2>
-      <Zone
-        name="Zona 1"
-        matches={matches.filter((match) => zones[0].includes(match.home))}
-      />
-      <Zone
-        name="Zona 2"
-        matches={matches.filter((match) => zones[1].includes(match.home))}
-      />
+      <h2 className="font-black text-2xl">
+        Torneo Plácido &apos;Lelo&apos; Castillo
+      </h2>
+      <section>
+        <section className="my-8">
+          <Zone
+            name="Zona 1"
+            matches={matches.filter((match) => zones[0].includes(match.home))}
+          />
+          <div className="my-8">
+            <PositionTable
+              matches={matches.filter((match) => zones[0].includes(match.home))}
+              teams={teams.filter((team) => zones[0].includes(team.team_id))}
+            />
+          </div>
+        </section>
+        <section className="my-8">
+          <Zone
+            name="Zona 2"
+            matches={matches.filter((match) => zones[1].includes(match.home))}
+          />
+          <div className="my-8">
+            <PositionTable
+              matches={matches.filter((match) => zones[1].includes(match.home))}
+              teams={teams.filter((team) => zones[1].includes(team.team_id))}
+            />
+          </div>
+        </section>
+      </section>
+      <section className="my-8">
+        <ScorersTable matches={matches} />
+      </section>
     </section>
   );
 }
@@ -37,7 +63,11 @@ function Zone({ name, matches }) {
 
   return (
     <section>
-      <h3>{name}</h3>
+      <h3 className="flex items-center gap-2">
+        <hr aria-hidden="true" className="flex-1 border-[var(--color-lof)]" />
+        <span className="font-bold text-xs">{name}</span>
+        <hr aria-hidden="true" className="flex-1 border-[var(--color-lof)]" />
+      </h3>
       {rounds.map((round) => {
         const filteredMatches = matches.filter(
           (match) => match.round === round
@@ -51,8 +81,27 @@ function Zone({ name, matches }) {
         isFirstDetailsOpen = true;
 
         return (
-          <details key={round} open={shouldOpen}>
-            <summary>{rounds_reference[round]}</summary>
+          <details
+            name="round"
+            style={{
+              marginBlock: "1rem",
+              padding: "1rem",
+              borderRadius: "4px",
+              backgroundColor: "white",
+            }}
+            key={round}
+            open={shouldOpen}
+          >
+            <summary
+              style={{
+                fontWeight: "bold",
+                fontSize: "14px",
+                cursor: "pointer",
+                marginBottom: "1rem",
+              }}
+            >
+              {rounds_reference[round]}
+            </summary>
             <Matches matches={filteredMatches} />
           </details>
         );

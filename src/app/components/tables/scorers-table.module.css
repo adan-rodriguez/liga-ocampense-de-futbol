@@ -1,0 +1,17 @@
+.container {
+  overflow-x: auto;
+}
+
+.table {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.row {
+  border-block: 1px solid black;
+}
+
+.head_cell,
+.body_cell {
+  padding: 0.5rem;
+}

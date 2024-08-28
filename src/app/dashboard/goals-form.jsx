@@ -10,22 +10,23 @@ export function GoalsForm({ label, team, updateData, deleteGoal }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    async function obtainPlayers() {
-      setError("");
+  async function obtainPlayers() {
+    setError("");
+    setLoading(true);
 
-      if (!team || playersList[0]?.team == team) return;
+    const { players, error } = await getPlayers({ team });
 
-      setLoading(true);
-
-      const { players, error } = await getPlayers({ team });
-
-      if (error) return setError(error);
-
+    if (error) {
+      setError(error);
+    } else {
       setPlayersList(players);
-      setLoading(false);
     }
 
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (!team || playersList[0]?.team == team) return;
     obtainPlayers();
   }, [team]);
 
@@ -34,11 +35,7 @@ export function GoalsForm({ label, team, updateData, deleteGoal }) {
       <label>
         <span>Goles del {label}</span>
         <input
-          onChange={(e) => {
-            const goals = e.target.value;
-            setGoals(goals);
-            // resetData(goals);
-          }}
+          onChange={(e) => setGoals(e.target.value)}
           value={goals}
           name="home_goals"
           type="number"
@@ -47,10 +44,11 @@ export function GoalsForm({ label, team, updateData, deleteGoal }) {
           required
         />
       </label>
-      {loading && <p>Cargando jugadores...</p>}
+      <button type="button" onClick={obtainPlayers} disabled={loading}>
+        {loading ? "Cargando jugadores..." : "Actualizar lista de jugadores"}
+      </button>
       {error && <p>{error}</p>}
       {Number(goals) > 0 &&
-        !loading &&
         Array.from({ length: Number(goals) }).map((_, index) => (
           <GoalInput
             key={index}

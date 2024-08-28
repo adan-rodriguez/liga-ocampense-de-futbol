@@ -10,30 +10,35 @@ export const teams = [
     team_id: 2,
     short_name: "Papeleros",
     abbr: "PAP",
+    badge: "escudo-papelero.avif",
   },
   {
     name: "Club Deportivo Itatí",
     team_id: 3,
     short_name: "Deportivo Itatí",
     abbr: "ITA",
+    badge: "escudo-itati.avif",
   },
   {
     name: "Club Atlético Ocampo Fábrica",
     team_id: 4,
     short_name: "Ocampo Fábrica",
     abbr: "FAB",
+    badge: "escudo-ocampo-fabrica.avif",
   },
   {
     name: "Racing Club El Campesino",
     team_id: 5,
     short_name: "Racing El Campesino",
     abbr: "RAC",
+    badge: "escudo-racing-campesino.avif",
   },
   {
     name: "Club Huracán Villa Ocampo",
     team_id: 6,
     short_name: "Huracán",
     abbr: "HUR",
+    badge: "escudo-huracan.avif",
   },
   {
     name: "Club Social y Deportivo Juventud Km 407",
@@ -70,6 +75,7 @@ export const teams = [
     team_id: 12,
     short_name: "Tiro Federal",
     abbr: "TFE",
+    badge: "escudo-tiro-federal.avif",
   },
   {
     name: "Florencia Cicles Club",
@@ -88,6 +94,7 @@ export const teams = [
     team_id: 15,
     short_name: "Boxing",
     abbr: "BOX",
+    badge: "escudo-boxing.avif",
   },
   {
     name: "Club Atlético Central Pueblo Nuevo",

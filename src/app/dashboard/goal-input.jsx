@@ -39,15 +39,28 @@ export function GoalInput({ players, index, updateData, deleteGoal }) {
     <>
       <label style={{ position: "relative" }}>
         <span>{index + 1}º Gol</span>
-        <input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          type="search"
-          disabled={Boolean(goal_data.player) || goal_data.player === 0}
-          required
-        />
+        <div>
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            type="search"
+            disabled={Boolean(goal_data.player) || goal_data.player === 0}
+            required
+          />
+          {(Boolean(goal_data.player) || goal_data.player === 0) && (
+            <button
+              onClick={() => {
+                setGoalData({ player: null, minute: null });
+                setSearch("");
+              }}
+              type="button"
+            >
+              ❌
+            </button>
+          )}
+        </div>
         {!listIsHidden && (
           <ul onClick={handleClick} className={styles.players_list}>
             {search ? (
