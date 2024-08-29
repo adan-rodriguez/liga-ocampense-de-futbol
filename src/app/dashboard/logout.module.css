@@ -1,6 +1,4 @@
 .btn {
-  display: block;
-  margin-inline: auto;
   border-radius: 4px;
   padding: 0.5rem 2rem;
   background-color: var(--color-lof);

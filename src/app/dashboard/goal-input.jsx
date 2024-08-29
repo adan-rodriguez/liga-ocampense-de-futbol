@@ -1,11 +1,22 @@
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 
-export function GoalInput({ players, index, updateData, deleteGoal }) {
-  const [search, setSearch] = useState("");
+export function GoalInput({ players, goal_data, updateData, deleteGoal }) {
+  const [search, setSearch] = useState(
+    goal_data.player
+      ? players.find((player) => player.player_id == goal_data.player)
+          .firstname +
+          " " +
+          players.find((player) => player.player_id == goal_data.player)
+            .lastname
+      : goal_data.player == "0"
+      ? "Gol en contra"
+      : ""
+  );
   const [isFocus, setIsFocus] = useState(false);
-  const [goal_data, setGoalData] = useState({ player: null, minute: null });
   const [listIsHidden, setListIsHidden] = useState(true);
+
+  console.log({ goal_data });
 
   const handleClick = (e) => {
     const clickedElement = e.target;
@@ -15,8 +26,8 @@ export function GoalInput({ players, index, updateData, deleteGoal }) {
     if (item_list) {
       const player = Number(item_list.dataset.playerId);
 
-      const new_goal_data = { ...goal_data, player };
-      setGoalData(new_goal_data);
+      const new_goal = { ...goal_data, player };
+      updateData(new_goal);
       setSearch(item_list.textContent);
     }
   };
@@ -26,20 +37,34 @@ export function GoalInput({ players, index, updateData, deleteGoal }) {
   }, [isFocus]);
 
   useEffect(() => {
-    updateData({ ...goal_data, goal_id: index + 1 });
+    setSearch(
+      goal_data.player
+        ? players.find((player) => player.player_id == goal_data.player)
+            .firstname +
+            " " +
+            players.find((player) => player.player_id == goal_data.player)
+              .lastname
+        : goal_data.player == "0"
+        ? "Gol en contra"
+        : ""
+    );
   }, [goal_data]);
 
-  useEffect(() => {
-    return () => {
-      deleteGoal(index + 1);
-    };
-  }, []);
+  // useEffect(() => {
+  //   updateData(goal);
+  // }, [goal]);
+
+  // useEffect(() => {
+  //   return () => {
+  //     deleteGoal(goal.goal_id);
+  //   };
+  // }, []);
 
   return (
     <>
       <label style={{ position: "relative" }}>
-        <span>{index + 1}º Gol</span>
-        <div>
+        <span>{goal_data.goal_id}º Gol</span>
+        <div style={{ display: "flex" }}>
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -52,14 +77,17 @@ export function GoalInput({ players, index, updateData, deleteGoal }) {
           {(Boolean(goal_data.player) || goal_data.player === 0) && (
             <button
               onClick={() => {
-                setGoalData({ player: null, minute: null });
+                updateData({ ...goal_data, player: null, minute: null });
                 setSearch("");
               }}
               type="button"
             >
-              ❌
+              🔁
             </button>
           )}
+          <button onClick={() => deleteGoal(goal_data.goal_id)} type="button">
+            ❌
+          </button>
         </div>
         {!listIsHidden && (
           <ul onClick={handleClick} className={styles.players_list}>

@@ -12,3 +12,15 @@ export async function getMatches() {
     return { error: "Ocurrió un error. Regresa más tarde." };
   }
 }
+
+export async function getMatch(match_id) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/matches/${match_id}`
+    );
+    const { data, error } = await response.json();
+    return { match: data, error };
+  } catch (error) {
+    return { error: "Ocurrió un error. Regresa más tarde." };
+  }
+}

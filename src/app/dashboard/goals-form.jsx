@@ -4,10 +4,16 @@ import { useEffect, useState } from "react";
 import { GoalInput } from "./goal-input";
 import { getPlayers } from "../lib/players";
 
-export function GoalsForm({ label, team, updateData, deleteGoal }) {
-  const [goals, setGoals] = useState("0");
+export function GoalsForm({
+  label,
+  team,
+  goals_data,
+  addGoal,
+  updateData,
+  deleteGoal,
+}) {
   const [playersList, setPlayersList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   async function obtainPlayers() {
@@ -30,25 +36,34 @@ export function GoalsForm({ label, team, updateData, deleteGoal }) {
     obtainPlayers();
   }, [team]);
 
+  console.log({ goals_data });
+
   return (
     <>
-      <label>
-        <span>Goles del {label}</span>
-        <input
-          onChange={(e) => setGoals(e.target.value)}
-          value={goals}
-          name="home_goals"
-          type="number"
-          min={0}
-          max={99}
-          required
-        />
-      </label>
-      <button type="button" onClick={obtainPlayers} disabled={loading}>
-        {loading ? "Cargando jugadores..." : "Actualizar lista de jugadores"}
-      </button>
       {error && <p>{error}</p>}
-      {Number(goals) > 0 &&
+
+      {loading ? (
+        <p>Cargando jugadores...</p>
+      ) : (
+        <>
+          <button onClick={addGoal} type="button">
+            Agregar gol
+          </button>
+          {goals_data
+            .sort((a, b) => a.goal_id - b.goal_id)
+            .map((goal_data) => (
+              <GoalInput
+                key={goal_data.goal_id}
+                players={playersList}
+                goal_data={goal_data}
+                updateData={updateData}
+                deleteGoal={deleteGoal}
+              />
+            ))}
+        </>
+      )}
+
+      {/* {Number(goals) > 0 &&
         Array.from({ length: Number(goals) }).map((_, index) => (
           <GoalInput
             key={index}
@@ -57,7 +72,7 @@ export function GoalsForm({ label, team, updateData, deleteGoal }) {
             updateData={updateData}
             deleteGoal={deleteGoal}
           />
-        ))}
+        ))} */}
     </>
   );
 }
