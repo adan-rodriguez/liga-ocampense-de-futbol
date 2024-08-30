@@ -15,6 +15,7 @@ export function MatchForm({ teams, match }) {
   const [datetime, setDatetime] = useState(
     match?.datetime ? match.datetime : ""
   );
+  const [finalized, setFinalized] = useState(Boolean(match?.data_home_goals));
   const [data_home_goals, setDataHomeGoals] = useState(
     match?.data_home_goals ? match.data_home_goals : []
   );
@@ -22,7 +23,7 @@ export function MatchForm({ teams, match }) {
     match?.data_away_goals ? match.data_away_goals : []
   );
 
-  async function addMatch(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -30,7 +31,7 @@ export function MatchForm({ teams, match }) {
     const data = {
       home: Number(home),
       away: Number(away),
-      datetime: datetime === "" ? undefined : datetime,
+      datetime: datetime === "" ? undefined : datetime.slice(0, 16),
       data_home_goals: finalized ? data_home_goals : undefined,
       data_away_goals: finalized ? data_away_goals : undefined,
       tournament: 1 /* esto hay que cambiar según el id del torneo en disputa */,
@@ -38,20 +39,36 @@ export function MatchForm({ teams, match }) {
     };
 
     try {
-      const response = await fetch("/api/matches", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json;charset=UTF-8" }, // por defecto es text/plain;charset=UTF-8
-      });
+      let response;
+      if (match) {
+        response = await fetch(`/api/matches/${match.match_id}`, {
+          method: "PATCH",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json;charset=UTF-8" }, // por defecto es text/plain;charset=UTF-8
+        });
+      } else {
+        response = await fetch("/api/matches", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json;charset=UTF-8" }, // por defecto es text/plain;charset=UTF-8
+        });
+      }
 
       const { error } = await response.json();
 
       if (error) {
         setError(error);
       } else {
-        alert("Partido creado exitosamente");
-        setHome("");
-        setAway("");
+        if (match) {
+          alert("Partido actualizado exitosamente");
+        } else {
+          alert("Partido creado exitosamente");
+          setHome("");
+          setAway("");
+          setFinalized(false);
+          setDataHomeGoals([]);
+          setDataAwayGoals([]);
+        }
       }
     } catch (error) {
       setError("Ocurrió un error. Regresa más tarde.");
@@ -60,13 +77,8 @@ export function MatchForm({ teams, match }) {
     setLoading(false);
   }
 
-  async function editMatch() {}
-
   return (
-    <form
-      onSubmit={match ? editMatch : addMatch}
-      className="shadow-inner shadow-black"
-    >
+    <form onSubmit={handleSubmit} className="shadow-inner shadow-black">
       <h2>{`${match ? "Editar" : "Agregar"}`} partido</h2>
 
       {!match ? (
@@ -193,93 +205,112 @@ export function MatchForm({ teams, match }) {
         />
       </label>
 
-      <GoalsForm
-        label="local"
-        team={home}
-        goals_data={data_home_goals}
-        updateData={(goal_data) => {
-          console.log("update");
+      <label>
+        <input
+          type="checkbox"
+          checked={finalized}
+          onChange={() => setFinalized(!finalized)}
+        />
+      </label>
 
-          const index = data_home_goals.findIndex(
-            (item) => item.goal_id == goal_data.goal_id
-          );
+      {finalized && (
+        <>
+          <GoalsForm
+            label="local"
+            team={home}
+            goals_data={data_home_goals}
+            updateData={(goal_data) => {
+              console.log("update");
 
-          if (index === -1) {
-            setDataHomeGoals([...data_home_goals, goal_data]);
-          } else {
-            const cleanData = [
-              ...data_home_goals.slice(0, index),
-              ...data_home_goals.slice(index + 1),
-            ];
-            setDataHomeGoals([...cleanData, goal_data]);
-          }
-        }}
-        deleteGoal={(goal_id) => {
-          console.log("delete");
-          setDataHomeGoals((prevData) => {
-            const index = prevData.findIndex((item) => item.goal_id == goal_id);
-            console.log({ prevData, index, goal_id });
+              const index = data_home_goals.findIndex(
+                (item) => item.goal_id == goal_data.goal_id
+              );
 
-            const afterGoals = [...prevData.slice(index + 1)].map((goal) => {
-              return { ...goal, goal_id: goal.goal_id - 1 };
-            });
-            console.log({ afterGoals });
-            console.log([...prevData.slice(0, index), ...afterGoals]);
+              if (index === -1) {
+                setDataHomeGoals([...data_home_goals, goal_data]);
+              } else {
+                const cleanData = [
+                  ...data_home_goals.slice(0, index),
+                  ...data_home_goals.slice(index + 1),
+                ];
+                setDataHomeGoals([...cleanData, goal_data]);
+              }
+            }}
+            deleteGoal={(goal_id) => {
+              console.log("delete");
+              setDataHomeGoals((prevData) => {
+                const index = prevData.findIndex(
+                  (item) => item.goal_id == goal_id
+                );
+                console.log({ prevData, index, goal_id });
 
-            return [...prevData.slice(0, index), ...afterGoals];
-          });
-        }}
-        addGoal={() => {
-          console.log("add");
-          setDataHomeGoals((prevData) => {
-            return [
-              ...prevData,
-              { goal_id: prevData.length + 1, player: null, minute: null },
-            ];
-          });
-        }}
-      />
+                const afterGoals = [...prevData.slice(index + 1)].map(
+                  (goal) => {
+                    return { ...goal, goal_id: goal.goal_id - 1 };
+                  }
+                );
+                console.log({ afterGoals });
+                console.log([...prevData.slice(0, index), ...afterGoals]);
 
-      <GoalsForm
-        label="visitante"
-        team={away}
-        goals_data={data_away_goals}
-        updateData={(goal_data) => {
-          const index = data_away_goals.findIndex(
-            (item) => item.goal_id == goal_data.goal_id
-          );
+                return [...prevData.slice(0, index), ...afterGoals];
+              });
+            }}
+            addGoal={() => {
+              console.log("add");
+              setDataHomeGoals((prevData) => {
+                return [
+                  ...prevData,
+                  { goal_id: prevData.length + 1, player: null, minute: null },
+                ];
+              });
+            }}
+          />
 
-          if (index === -1) {
-            setDataAwayGoals([...data_away_goals, goal_data]);
-          } else {
-            const cleanData = [
-              ...data_away_goals.slice(0, index),
-              ...data_away_goals.slice(index + 1),
-            ];
-            setDataAwayGoals([...cleanData, goal_data]);
-          }
-        }}
-        deleteGoal={(goal_id) => {
-          setDataAwayGoals((prevData) => {
-            const index = prevData.findIndex((item) => item.goal_id == goal_id);
+          <GoalsForm
+            label="visitante"
+            team={away}
+            goals_data={data_away_goals}
+            updateData={(goal_data) => {
+              const index = data_away_goals.findIndex(
+                (item) => item.goal_id == goal_data.goal_id
+              );
 
-            const afterGoals = [...prevData.slice(index + 1)].map((goal) => {
-              return { ...goal, goal_id: goal.goal_id - 1 };
-            });
+              if (index === -1) {
+                setDataAwayGoals([...data_away_goals, goal_data]);
+              } else {
+                const cleanData = [
+                  ...data_away_goals.slice(0, index),
+                  ...data_away_goals.slice(index + 1),
+                ];
+                setDataAwayGoals([...cleanData, goal_data]);
+              }
+            }}
+            deleteGoal={(goal_id) => {
+              setDataAwayGoals((prevData) => {
+                const index = prevData.findIndex(
+                  (item) => item.goal_id == goal_id
+                );
 
-            return [...prevData.slice(0, index), ...afterGoals];
-          });
-        }}
-        addGoal={() => {
-          setDataAwayGoals((prevData) => {
-            return [
-              ...prevData,
-              { goal_id: prevData.length + 1, player: null, minute: null },
-            ];
-          });
-        }}
-      />
+                const afterGoals = [...prevData.slice(index + 1)].map(
+                  (goal) => {
+                    return { ...goal, goal_id: goal.goal_id - 1 };
+                  }
+                );
 
+                return [...prevData.slice(0, index), ...afterGoals];
+              });
+            }}
+            addGoal={() => {
+              setDataAwayGoals((prevData) => {
+                return [
+                  ...prevData,
+                  { goal_id: prevData.length + 1, player: null, minute: null },
+                ];
+              });
+            }}
+          />
+        </>
+      )}
       {match ? (
         <button type="submit" disabled={loading}>
           {loading ? "Editando partido..." : "Editar partido"}

@@ -52,12 +52,35 @@ export async function PATCH(request, { params }) {
     });
   }
 
+  // Ambos deben ser undefined o ambos arrays
+  const bothUndefined =
+    data.data_home_goals === undefined && data.data_away_goals === undefined;
+
+  const bothArrays =
+    Array.isArray(data.data_home_goals) && Array.isArray(data.data_away_goals);
+
+  if (!bothUndefined && !bothArrays) {
+    return new Response(JSON.stringify({ error: "Error de validación" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    });
+  }
+
   const supabase = createClient();
-  const { error, status } = await supabase
+  const {
+    data: matchUpdated,
+    error,
+    status,
+  } = await supabase
     .from("matches")
-    .update(data)
-    .eq("match_id", match_id);
-  console.log({ error, status });
+    .update({
+      datetime: data.datetime,
+      data_home_goals: data.data_home_goals,
+      data_away_goals: data.data_away_goals,
+    })
+    .eq("match_id", Number(match_id))
+    .select();
+  console.log({ matchUpdated, error, status });
 
   if (error) {
     return new Response(JSON.stringify({ error: "Error de bbdd" }), {
@@ -67,7 +90,7 @@ export async function PATCH(request, { params }) {
   }
 
   return new Response(JSON.stringify({ message: "Partido actualizado" }), {
-    status: 204,
+    status: 200,
     headers: { "Content-Type": "application/json;charset=UTF-8" },
   });
 }

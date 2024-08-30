@@ -50,16 +50,6 @@ export function GoalInput({ players, goal_data, updateData, deleteGoal }) {
     );
   }, [goal_data]);
 
-  // useEffect(() => {
-  //   updateData(goal);
-  // }, [goal]);
-
-  // useEffect(() => {
-  //   return () => {
-  //     deleteGoal(goal.goal_id);
-  //   };
-  // }, []);
-
   return (
     <>
       <label style={{ position: "relative" }}>

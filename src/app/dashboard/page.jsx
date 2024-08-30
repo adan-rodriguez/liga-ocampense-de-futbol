@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { LogoutBtn } from "./logout-btn";
 
 export default async function DashboardPage() {
   return (
@@ -9,9 +8,6 @@ export default async function DashboardPage() {
       <Link href="/dashboard/partidos/editar">Editar partido</Link>
       <Link href="/dashboard/jugadores/agregar">Agregar jugador</Link>
       <Link href="/dashboard/jugadores/editar">Editar jugador</Link>
-      <div style={{ textAlign: "center" }}>
-        <LogoutBtn />
-      </div>
     </div>
   );
 }
