@@ -2,39 +2,57 @@
 
 import { useState } from "react";
 
-export function PlayerForm({ teams }) {
+export function PlayerForm({ teams, player }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const [firstname, setFirstname] = useState(player?.firstname ?? "");
+  const [lastname, setLastname] = useState(player?.lastname ?? "");
+  const [team, setTeam] = useState(player?.team ? String(player.team) : "");
+  const [birthdate, setBirthdate] = useState(player?.birthdate ?? "");
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     setError("");
 
-    const $form = e.target;
-    const formData = new FormData($form);
-    const jsonRaw = Object.fromEntries(formData.entries());
-
-    const json = {
-      ...jsonRaw,
-      team: jsonRaw.team === "" ? undefined : Number(jsonRaw.team),
-      birthdate: jsonRaw.birthdate === "" ? undefined : jsonRaw.birthdate,
+    const playerData = {
+      firstname,
+      lastname,
+      team: team === "" ? undefined : Number(team),
+      birthdate: birthdate === "" ? undefined : birthdate,
     };
 
     try {
-      const response = await fetch("/api/players", {
-        method: "POST",
-        body: JSON.stringify(json),
-        headers: { "Content-Type": "application/json;charset=UTF-8" },
-      });
+      let response;
+      if (player) {
+        response = await fetch(`/api/players/${player.player_id}`, {
+          method: "PUT",
+          body: JSON.stringify(playerData),
+          headers: { "Content-Type": "application/json;charset=UTF-8" },
+        });
+      } else {
+        response = await fetch("/api/players", {
+          method: "POST",
+          body: JSON.stringify(playerData),
+          headers: { "Content-Type": "application/json;charset=UTF-8" },
+        });
+      }
 
       const { error } = await response.json();
 
       if (error) {
         setError(error);
       } else {
-        alert("Jugador creado exitosamente");
-        $form.reset();
+        if (player) {
+          alert("Jugador editado exitosamente");
+        } else {
+          alert("Jugador creado exitosamente");
+          setFirstname("");
+          setLastname("");
+          setTeam("");
+          setBirthdate("");
+        }
       }
     } catch (error) {
       setError("Ocurrió un error. Regresa más tarde.");
@@ -48,15 +66,33 @@ export function PlayerForm({ teams }) {
       <h2>Agregar jugador</h2>
       <label>
         <span>Nombre/s</span>
-        <input name="firstname" required minLength={2} maxLength={200} />
+        <input
+          value={firstname}
+          onChange={(e) => setFirstname(e.target.value)}
+          name="firstname"
+          required
+          minLength={2}
+          maxLength={200}
+        />
       </label>
       <label>
         <span>Apellido/s</span>
-        <input name="lastname" required minLength={2} maxLength={200} />
+        <input
+          value={lastname}
+          onChange={(e) => setLastname(e.target.value)}
+          name="lastname"
+          required
+          minLength={2}
+          maxLength={200}
+        />
       </label>
       <label>
         Equipo
-        <select name="team">
+        <select
+          value={team}
+          onChange={(e) => setTeam(e.target.value)}
+          name="team"
+        >
           <option value="">Libre</option>
           {teams.map(({ team_id, short_name }) => (
             <option value={team_id} key={team_id}>
@@ -67,11 +103,24 @@ export function PlayerForm({ teams }) {
       </label>
       <label>
         <span>Fecha de nacimiento</span>
-        <input name="birthdate" type="date" />
+        <input
+          value={birthdate}
+          onChange={(e) => setBirthdate(e.target.value)}
+          name="birthdate"
+          type="date"
+        />
       </label>
-      <button disabled={loading}>
-        {loading ? "Agregando jugador..." : "Agregar jugador"}
-      </button>
+
+      {player ? (
+        <button type="submit" disabled={loading}>
+          {loading ? "Editando jugador..." : "Editar jugador"}
+        </button>
+      ) : (
+        <button type="submit" disabled={loading}>
+          {loading ? "Agregando jugador..." : "Agregar jugador"}
+        </button>
+      )}
+
       {error && <p>{error}</p>}
     </form>
   );

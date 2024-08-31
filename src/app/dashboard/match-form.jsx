@@ -3,8 +3,12 @@
 import { useState } from "react";
 import { GoalsForm } from "./goals-form";
 import { zones } from "../data/torneo-placido-lelo-castillo";
+import { deleteMatch } from "../lib/matches";
+import { useRouter } from "next/navigation";
 
 export function MatchForm({ teams, match }) {
+  const router = useRouter();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -50,7 +54,7 @@ export function MatchForm({ teams, match }) {
         response = await fetch("/api/matches", {
           method: "POST",
           body: JSON.stringify(data),
-          headers: { "Content-Type": "application/json;charset=UTF-8" }, // por defecto es text/plain;charset=UTF-8
+          headers: { "Content-Type": "application/json;charset=UTF-8" },
         });
       }
 
@@ -75,6 +79,20 @@ export function MatchForm({ teams, match }) {
     }
 
     setLoading(false);
+  }
+
+  async function handleDelete() {
+    setError("");
+
+    const { error } = await deleteMatch(match.match_id);
+
+    if (error) {
+      setError("Ocurrió un error. Intenta de nuevo más tarde...");
+      return;
+    }
+
+    alert("Partido eliminado");
+    router.push("/dashboard");
   }
 
   return (
@@ -220,8 +238,6 @@ export function MatchForm({ teams, match }) {
             team={home}
             goals_data={data_home_goals}
             updateData={(goal_data) => {
-              console.log("update");
-
               const index = data_home_goals.findIndex(
                 (item) => item.goal_id == goal_data.goal_id
               );
@@ -237,26 +253,21 @@ export function MatchForm({ teams, match }) {
               }
             }}
             deleteGoal={(goal_id) => {
-              console.log("delete");
               setDataHomeGoals((prevData) => {
                 const index = prevData.findIndex(
                   (item) => item.goal_id == goal_id
                 );
-                console.log({ prevData, index, goal_id });
 
                 const afterGoals = [...prevData.slice(index + 1)].map(
                   (goal) => {
                     return { ...goal, goal_id: goal.goal_id - 1 };
                   }
                 );
-                console.log({ afterGoals });
-                console.log([...prevData.slice(0, index), ...afterGoals]);
 
                 return [...prevData.slice(0, index), ...afterGoals];
               });
             }}
             addGoal={() => {
-              console.log("add");
               setDataHomeGoals((prevData) => {
                 return [
                   ...prevData,
@@ -320,6 +331,13 @@ export function MatchForm({ teams, match }) {
           {loading ? "Agregando partido..." : "Agregar partido"}
         </button>
       )}
+
+      {match && (
+        <button onClick={handleDelete} type="button">
+          Eliminar partido
+        </button>
+      )}
+
       {error && <p>{error}</p>}
     </form>
   );

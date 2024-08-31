@@ -81,7 +81,7 @@ export async function POST(request) {
   return new Response(
     JSON.stringify({ message: "Jugador creado exitosamente" }),
     {
-      status: status,
+      status: 201,
       headers: { "Content-Type": "application/json;charset=UTF-8" },
     }
   );

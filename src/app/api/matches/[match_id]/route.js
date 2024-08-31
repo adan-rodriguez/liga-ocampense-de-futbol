@@ -1,5 +1,6 @@
 import { matchSchema } from "@/app/lib/schemas";
 import { createClient } from "@/app/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 
 export async function GET(request, { params }) {
   const { match_id } = params;
@@ -35,7 +36,6 @@ export async function PATCH(request, { params }) {
   try {
     body = await request.json();
   } catch (error) {
-    console.log(error);
     return new Response(JSON.stringify({ error: "Solicitud incorrecta" }), {
       status: 400,
       headers: { "Content-Type": "application/json;charset=UTF-8" },
@@ -43,7 +43,6 @@ export async function PATCH(request, { params }) {
   }
 
   const { data, error: validateError } = matchSchema.safeParse(body);
-  console.log({ data, validateError });
 
   if (validateError) {
     return new Response(JSON.stringify({ error: "Error de validación" }), {
@@ -67,20 +66,14 @@ export async function PATCH(request, { params }) {
   }
 
   const supabase = createClient();
-  const {
-    data: matchUpdated,
-    error,
-    status,
-  } = await supabase
+  const { error, status } = await supabase
     .from("matches")
     .update({
       datetime: data.datetime,
       data_home_goals: data.data_home_goals,
       data_away_goals: data.data_away_goals,
     })
-    .eq("match_id", Number(match_id))
-    .select();
-  console.log({ matchUpdated, error, status });
+    .eq("match_id", Number(match_id));
 
   if (error) {
     return new Response(JSON.stringify({ error: "Error de bbdd" }), {
@@ -89,8 +82,38 @@ export async function PATCH(request, { params }) {
     });
   }
 
+  revalidatePath("/");
+
   return new Response(JSON.stringify({ message: "Partido actualizado" }), {
     status: 200,
     headers: { "Content-Type": "application/json;charset=UTF-8" },
+  });
+}
+
+export async function DELETE(request, { params }) {
+  const { match_id } = params;
+
+  const supabase = createClient();
+  const { error } = await supabase
+    .from("matches")
+    .delete()
+    .eq("match_id", match_id);
+
+  if (error) {
+    return new Response(JSON.stringify({ error: "Error de bbdd" }), {
+      status: 400,
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+    });
+  }
+
+  revalidatePath("/");
+
+  return new Response(JSON.stringify({ message: "Partido eliminado" }), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
   });
 }

@@ -16,8 +16,6 @@ export function GoalInput({ players, goal_data, updateData, deleteGoal }) {
   const [isFocus, setIsFocus] = useState(false);
   const [listIsHidden, setListIsHidden] = useState(true);
 
-  console.log({ goal_data });
-
   const handleClick = (e) => {
     const clickedElement = e.target;
 

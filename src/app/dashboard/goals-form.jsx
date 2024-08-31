@@ -36,11 +36,11 @@ export function GoalsForm({
     obtainPlayers();
   }, [team]);
 
-  console.log({ goals_data });
-
   return (
     <>
       {error && <p>{error}</p>}
+
+      <p>Goles del equipo {label}</p>
 
       {loading ? (
         <p>Cargando jugadores...</p>
@@ -62,17 +62,6 @@ export function GoalsForm({
             ))}
         </>
       )}
-
-      {/* {Number(goals) > 0 &&
-        Array.from({ length: Number(goals) }).map((_, index) => (
-          <GoalInput
-            key={index}
-            players={playersList}
-            index={index}
-            updateData={updateData}
-            deleteGoal={deleteGoal}
-          />
-        ))} */}
     </>
   );
 }

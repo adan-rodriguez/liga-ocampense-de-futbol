@@ -24,3 +24,16 @@ export async function getMatch(match_id) {
     return { error: "Ocurrió un error. Regresa más tarde." };
   }
 }
+
+export async function deleteMatch(match_id) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/matches/${match_id}`,
+      { method: "DELETE" }
+    );
+    const { error } = await response.json();
+    return { error };
+  } catch (error) {
+    return { error: "Ocurrió un error. Regresa más tarde." };
+  }
+}
