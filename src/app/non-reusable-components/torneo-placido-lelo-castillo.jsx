@@ -20,7 +20,7 @@ export async function TorneoPlacidoLeloCastillo() {
       <section>
         <section className="my-8">
           <Zone
-            name="Zona 1"
+            name="Zona Sur"
             matches={matches.filter((match) => zones[0].includes(match.home))}
           />
           <div className="my-8">
@@ -32,7 +32,7 @@ export async function TorneoPlacidoLeloCastillo() {
         </section>
         <section className="my-8">
           <Zone
-            name="Zona 2"
+            name="Zona Norte"
             matches={matches.filter((match) => zones[1].includes(match.home))}
           />
           <div className="my-8">

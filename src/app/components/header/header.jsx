@@ -22,6 +22,7 @@ export function Header() {
         </Link>
         <nav className={styles.nav}>
           <Link href="/equipos">Equipos</Link>
+          <Link href="/login">Ingresar</Link>
           {/* <Link href="/historia">Historia</Link>
           <details>
             <summary>Torneos</summary>

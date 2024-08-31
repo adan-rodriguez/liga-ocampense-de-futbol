@@ -24,7 +24,7 @@ export function Match({ match }) {
     <article className={`${styles.card} shadow`} key={match.match_id}>
       <div className={styles.team}>
         <img
-          src={`escudos/${home.badge || "escudo-vacio.avif"}`}
+          src={`/escudos/${home.badge || "/escudo-vacio.avif"}`}
           alt={`Escudo de ${home.short_name}`}
           className={styles.badge}
         />
@@ -40,7 +40,7 @@ export function Match({ match }) {
 
       <div className={styles.team} style={{ justifyContent: "end" }}>
         <img
-          src={`escudos/${away.badge || "escudo-vacio.avif"}`}
+          src={`/escudos/${away.badge || "/escudo-vacio.avif"}`}
           alt={`Escudo de ${away.short_name}`}
           className={styles.badge}
         />

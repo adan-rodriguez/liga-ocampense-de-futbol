@@ -10,6 +10,7 @@ export function PositionTable({ matches, teams }) {
   const data = teams.map((team) => ({
     ...team,
     points: 0,
+    played: 0,
     w: 0,
     l: 0,
     d: 0,
@@ -20,10 +21,13 @@ export function PositionTable({ matches, teams }) {
   matches.forEach((match) => {
     const homeGoals = match.data_home_goals?.length;
     const awayGoals = match.data_away_goals?.length;
-    if (!homeGoals && homeGoals !== 0) return;
+    if (!homeGoals === null) return;
 
     const home = data.find((team) => team.team_id === match.home);
     const away = data.find((team) => team.team_id === match.away);
+
+    home.played += 1;
+    away.played += 1;
 
     const result =
       homeGoals > awayGoals
@@ -79,6 +83,7 @@ export function PositionTable({ matches, teams }) {
               EQUIPO
             </th>
             <th className={tableStyles.head_cell}>PTS</th>
+            <th className={tableStyles.head_cell}>PJ</th>
             <th className={tableStyles.head_cell}>PG</th>
             <th className={tableStyles.head_cell}>PE</th>
             <th className={tableStyles.head_cell}>PP</th>
@@ -103,6 +108,7 @@ export function PositionTable({ matches, teams }) {
                 <span style={{ whiteSpace: "nowrap" }}>{team.short_name}</span>
               </td>
               <td className={tableStyles.body_cell}>{team.points}</td>
+              <td className={tableStyles.body_cell}>{team.played}</td>
               <td className={tableStyles.body_cell}>{team.w}</td>
               <td className={tableStyles.body_cell}>{team.l}</td>
               <td className={tableStyles.body_cell}>{team.d}</td>

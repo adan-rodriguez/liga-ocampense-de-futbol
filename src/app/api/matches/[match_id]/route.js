@@ -83,6 +83,7 @@ export async function PATCH(request, { params }) {
   }
 
   revalidatePath("/");
+  revalidatePath("/dashboard/partidos/editar");
 
   return new Response(JSON.stringify({ message: "Partido actualizado" }), {
     status: 200,
@@ -109,6 +110,7 @@ export async function DELETE(request, { params }) {
   }
 
   revalidatePath("/");
+  revalidatePath("/dashboard/partidos/editar");
 
   return new Response(JSON.stringify({ message: "Partido eliminado" }), {
     status: 200,
