@@ -1,17 +1,10 @@
-.container {
-  overflow-x: auto;
-}
-
-.table {
-  border: 1px solid black;
-  text-align: center;
-}
-
-.row {
-  border-block: 1px solid black;
-}
-
-.head_cell,
-.body_cell {
-  padding: 0.5rem;
+.points {
+  background-color: var(--color-lof);
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  display: grid;
+  place-items: center;
+  margin-inline: auto;
+  font-weight: bold;
 }

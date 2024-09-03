@@ -10,7 +10,9 @@ export default function RootLayout({ children }) {
         <Link href="/dashboard/partidos/editar">Editar partido</Link>
         <Link href="/dashboard/jugadores/agregar">Agregar jugador</Link>
         <Link href="/dashboard/jugadores/editar">Editar jugador</Link>
-        <LogoutBtn />
+        <div>
+          <LogoutBtn />
+        </div>
       </div>
       <div style={{ flex: "1" }}>{children}</div>
     </div>

@@ -6,12 +6,13 @@
 .table {
   text-align: center;
   width: 100%;
-  background-color: #fff;
+  /* background-color: #3f7550; */
+  background-color: var(--color-lof);
   border-radius: 4px;
 }
 
 .row {
-  border-bottom: 1px solid var(--color-lof);
+  /* border-bottom: 1px solid var(--color-lof); */
 }
 
 .row:last-child {

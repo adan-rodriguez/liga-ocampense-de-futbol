@@ -96,7 +96,7 @@ export function MatchForm({ teams, match }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="shadow-inner shadow-black">
+    <form onSubmit={handleSubmit}>
       <h2>{`${match ? "Editar" : "Agregar"}`} partido</h2>
 
       {!match ? (

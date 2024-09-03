@@ -21,46 +21,101 @@ export function Match({ match }) {
   const qty_away_goals = match.data_away_goals?.length;
 
   return (
-    <article className={`${styles.card} shadow`} key={match.match_id}>
-      <div className={styles.team}>
-        <img
-          src={`/escudos/${home.badge || "/escudo-vacio.avif"}`}
-          alt={`Escudo de ${home.short_name}`}
-          className={styles.badge}
-        />
-        <p className={styles.team_name}>{home.short_name}</p>
-        <p className={styles.team_abbr}>{home.abbr}</p>
-      </div>
-
-      <div className={styles.result_container}>
-        <span className={styles.result}>
-          {qty_home_goals ?? "—"} - {qty_away_goals ?? "—"}
-        </span>
-      </div>
-
-      <div className={styles.team} style={{ justifyContent: "end" }}>
-        <img
-          src={`/escudos/${away.badge || "/escudo-vacio.avif"}`}
-          alt={`Escudo de ${away.short_name}`}
-          className={styles.badge}
-        />
-        <p className={styles.team_name}>{away.short_name}</p>
-        <p className={styles.team_abbr}>{away.abbr}</p>
-      </div>
-
-      <div className={styles.players}>
-        {match.data_home_goals.map((goal) => (
-          <p key={goal.goal_id}>
-            {goal.player === 0 ? (
-              "Gol en contra"
-            ) : (
-              <PlayerName player_id={goal.player} />
-            )}
-          </p>
-        ))}
-      </div>
-
+    <article
+      className={`${styles.card} shadow-inner shadow-black`}
+      key={match.match_id}
+    >
       <div className={styles.datetime}>
+        <time>
+          {formattedDate} {formattedTime}
+        </time>
+      </div>
+      <div
+        className={styles.team}
+        // style={{
+        //   backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.99), rgba(0, 0, 0, 0.99)),  url(/escudos/${
+        //     home.badge || "/escudo-vacio.avif"
+        //   })`,
+        // }}
+        style={{
+          backgroundImage: `linear-gradient(to right, black, ${
+            home.colors ?? "violet"
+          }, black), linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))`,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <img
+              src={`/escudos/${home.badge || "/escudo-vacio.avif"}`}
+              alt={`Escudo de ${home.short_name}`}
+              className={styles.badge}
+            />
+            <p className={styles.team_name}>{home.short_name}</p>
+            <p className={styles.team_abbr}>{home.abbr}</p>
+          </div>
+          <span className={styles.result} style={{ marginLeft: "auto" }}>
+            {qty_home_goals}
+          </span>
+        </div>
+        <div className={styles.players}>
+          {match.data_home_goals.map((goal) => (
+            <p key={goal.goal_id}>
+              {goal.player === 0 ? (
+                "Gol en contra"
+              ) : (
+                <PlayerName player_id={goal.player} />
+              )}
+            </p>
+          ))}
+        </div>
+      </div>
+
+      <div
+        className={styles.team}
+        // style={{
+        //   backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.99), rgba(0, 0, 0, 0.99)),url(/escudos/${
+        //     away.badge || "/escudo-vacio.avif"
+        //   })`,
+        // }}
+        style={{
+          backgroundImage: `linear-gradient(to right, black, ${
+            away.colors ?? "violet"
+          }, black), linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))`,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <span className={styles.result}>{qty_away_goals}</span>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              marginLeft: "auto",
+            }}
+          >
+            <img
+              src={`/escudos/${away.badge || "/escudo-vacio.avif"}`}
+              alt={`Escudo de ${away.short_name}`}
+              className={styles.badge}
+            />
+            <p className={styles.team_name}>{away.short_name}</p>
+            <p className={styles.team_abbr}>{away.abbr}</p>
+          </div>
+        </div>
+        <div className={styles.players} style={{ textAlign: "right" }}>
+          {match.data_away_goals.map(async (goal) => (
+            <p key={goal.goal_id}>
+              {goal.player === 0 ? (
+                "Gol en contra"
+              ) : (
+                <PlayerName player_id={goal.player} />
+              )}
+            </p>
+          ))}
+        </div>
+      </div>
+
+      {/* <div className={styles.datetime}>
         <time style={{ display: "block" }}>
           {
             (
@@ -72,19 +127,13 @@ export function Match({ match }) {
           <br />
           {formattedTime}
         </time>
-      </div>
+      </div> */}
 
-      <div className={styles.players} style={{ textAlign: "right" }}>
-        {match.data_away_goals.map(async (goal) => (
-          <p key={goal.goal_id}>
-            {goal.player === 0 ? (
-              "Gol en contra"
-            ) : (
-              <PlayerName player_id={goal.player} />
-            )}
-          </p>
-        ))}
-      </div>
+      {/* <div className={styles.datetime}>
+        <time>
+          {formattedDate} {formattedTime}
+        </time>
+      </div> */}
     </article>
   );
 }

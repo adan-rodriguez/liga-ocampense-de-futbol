@@ -1,4 +1,5 @@
 import tableStyles from "./table.module.css";
+import positionTableStyles from "./position-table.module.css";
 
 export function PositionTable({ matches, teams }) {
   const RESULTS = {
@@ -12,8 +13,8 @@ export function PositionTable({ matches, teams }) {
     points: 0,
     played: 0,
     w: 0,
-    l: 0,
     d: 0,
+    l: 0,
     gf: 0,
     ga: 0,
   }));
@@ -75,7 +76,7 @@ export function PositionTable({ matches, teams }) {
 
   return (
     <div className={tableStyles.container}>
-      <table className={`${tableStyles.table} shadow-inner shadow-black`}>
+      <table className={`${tableStyles.table}`}>
         <thead>
           <tr className={tableStyles.row}>
             <th className={tableStyles.head_cell}>POS</th>
@@ -94,24 +95,38 @@ export function PositionTable({ matches, teams }) {
         </thead>
         <tbody>
           {data.map((team, index) => (
-            <tr className={tableStyles.row} key={team.team_id}>
+            <tr
+              style={{
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), linear-gradient(to right, black, ${
+                  team.colors ?? "violet"
+                }, black)`,
+              }}
+              className={tableStyles.row}
+              key={team.team_id}
+            >
               <td className={tableStyles.body_cell}>{index + 1}</td>
               <td
                 className={tableStyles.body_cell}
-                style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
+                style={{ textAlign: "left" }}
               >
                 <img
                   src={`escudos/${team.badge || "escudo-vacio.avif"}`}
                   alt={`Escudo de ${team.short_name}`}
-                  style={{ height: "16px" }}
+                  style={{ height: "16px", display: "inline-block" }}
                 />
-                <span style={{ whiteSpace: "nowrap" }}>{team.short_name}</span>
+                <span style={{ whiteSpace: "nowrap", marginLeft: "0.5rem" }}>
+                  {team.short_name}
+                </span>
               </td>
-              <td className={tableStyles.body_cell}>{team.points}</td>
+              <td className={tableStyles.body_cell}>
+                <span className={positionTableStyles.points}>
+                  {team.points}
+                </span>
+              </td>
               <td className={tableStyles.body_cell}>{team.played}</td>
               <td className={tableStyles.body_cell}>{team.w}</td>
-              <td className={tableStyles.body_cell}>{team.l}</td>
               <td className={tableStyles.body_cell}>{team.d}</td>
+              <td className={tableStyles.body_cell}>{team.l}</td>
               <td className={tableStyles.body_cell}>{team.gf}</td>
               <td className={tableStyles.body_cell}>{team.ga}</td>
               <td className={tableStyles.body_cell}>{team.gf - team.ga}</td>

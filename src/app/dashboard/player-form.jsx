@@ -62,7 +62,7 @@ export function PlayerForm({ teams, player }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="shadow-inner shadow-black">
+    <form onSubmit={handleSubmit}>
       <h2>Agregar jugador</h2>
       <label>
         <span>Nombre/s</span>

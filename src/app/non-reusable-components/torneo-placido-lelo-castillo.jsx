@@ -89,6 +89,7 @@ function Zone({ name, matches }) {
               padding: "1rem",
               borderRadius: "4px",
               backgroundColor: "white",
+              color: "black",
             }}
             key={round}
             open={shouldOpen}
