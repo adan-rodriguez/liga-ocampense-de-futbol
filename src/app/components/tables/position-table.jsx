@@ -77,7 +77,7 @@ export function PositionTable({ matches, teams }) {
   return (
     <div className={tableStyles.container}>
       <table className={`${tableStyles.table}`}>
-        <thead>
+        <thead className={tableStyles.table_head}>
           <tr className={tableStyles.row}>
             <th className={tableStyles.head_cell}>POS</th>
             <th className={tableStyles.head_cell} style={{ textAlign: "left" }}>
@@ -97,9 +97,9 @@ export function PositionTable({ matches, teams }) {
           {data.map((team, index) => (
             <tr
               style={{
-                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), linear-gradient(to right, black, ${
-                  team.colors ?? "violet"
-                }, black)`,
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), linear-gradient(to right, ${
+                  team.colors ?? "black, var(--color-lof)"
+                })`,
               }}
               className={tableStyles.row}
               key={team.team_id}
@@ -107,19 +107,27 @@ export function PositionTable({ matches, teams }) {
               <td className={tableStyles.body_cell}>{index + 1}</td>
               <td
                 className={tableStyles.body_cell}
-                style={{ textAlign: "left" }}
+                style={{ textAlign: "left", whiteSpace: "nowrap" }}
               >
                 <img
                   src={`escudos/${team.badge || "escudo-vacio.avif"}`}
                   alt={`Escudo de ${team.short_name}`}
                   style={{ height: "16px", display: "inline-block" }}
                 />
-                <span style={{ whiteSpace: "nowrap", marginLeft: "0.5rem" }}>
+                <span
+                  style={{
+                    whiteSpace: "nowrap",
+                    marginLeft: "0.5rem",
+                    verticalAlign: "middle",
+                  }}
+                >
                   {team.short_name}
                 </span>
               </td>
               <td className={tableStyles.body_cell}>
-                <span className={positionTableStyles.points}>
+                <span
+                  className={`${positionTableStyles.points} shadow-lg shadow-black`}
+                >
                   {team.points}
                 </span>
               </td>

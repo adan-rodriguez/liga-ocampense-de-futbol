@@ -42,7 +42,7 @@ export async function ScorersTable({ matches }) {
     <div className={tableStyles.container}>
       <table className={`${tableStyles.table}`} style={{ maxWidth: "500px" }}>
         <caption>Goleadores</caption>
-        <thead>
+        <thead className={tableStyles.table_head}>
           <tr className={tableStyles.row}>
             <th className={tableStyles.head_cell} style={{ textAlign: "left" }}>
               JUGADOR
@@ -51,30 +51,40 @@ export async function ScorersTable({ matches }) {
           </tr>
         </thead>
         <tbody>
-          {scorers.slice(0, 10).map((player) => (
-            <tr className={tableStyles.row} key={player.player_id}>
-              <td
-                className={tableStyles.body_cell}
-                style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+          {scorers.slice(0, 10).map((player) => {
+            const team = teams.find((team) => team.team_id === player.team);
+
+            return (
+              <tr
+                style={{
+                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), linear-gradient(to right,  ${
+                    team?.colors ?? "var(--color-lof)"
+                  })`,
+                }}
+                className={tableStyles.row}
+                key={player.player_id}
               >
-                <img
-                  style={{ height: "16px" }}
-                  src={`escudos/${
-                    teams.find((team) => team.team_id === player.team)?.badge ||
-                    "escudo-vacio.avif"
-                  }`}
-                  alt={`Escudo de ${
-                    teams.find((team) => team.team_id === player.team)
-                      ?.short_name
-                  }`}
-                />
-                <span style={{ whiteSpace: "nowrap" }}>
-                  {player.firstname} {player.lastname}
-                </span>
-              </td>
-              <td className={tableStyles.body_cell}>{player.goals}</td>
-            </tr>
-          ))}
+                <td
+                  className={tableStyles.body_cell}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <img
+                    style={{ height: "16px" }}
+                    src={`escudos/${team?.badge ?? "escudo-vacio.avif"}`}
+                    alt={`Escudo de ${team?.short_name}`}
+                  />
+                  <span style={{ whiteSpace: "nowrap" }}>
+                    {player.firstname} {player.lastname}
+                  </span>
+                </td>
+                <td className={tableStyles.body_cell}>{player.goals}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

@@ -32,14 +32,9 @@ export function Match({ match }) {
       </div>
       <div
         className={styles.team}
-        // style={{
-        //   backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.99), rgba(0, 0, 0, 0.99)),  url(/escudos/${
-        //     home.badge || "/escudo-vacio.avif"
-        //   })`,
-        // }}
         style={{
-          backgroundImage: `linear-gradient(to right, black, ${
-            home.colors ?? "violet"
+          backgroundImage: `linear-gradient(to right, ${
+            home.colors ?? "var(--color-lof)"
           }, black), linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))`,
         }}
       >
@@ -53,7 +48,10 @@ export function Match({ match }) {
             <p className={styles.team_name}>{home.short_name}</p>
             <p className={styles.team_abbr}>{home.abbr}</p>
           </div>
-          <span className={styles.result} style={{ marginLeft: "auto" }}>
+          <span
+            className={`${styles.result} shadow-lg shadow-black`}
+            style={{ marginLeft: "auto" }}
+          >
             {qty_home_goals}
           </span>
         </div>
@@ -72,19 +70,16 @@ export function Match({ match }) {
 
       <div
         className={styles.team}
-        // style={{
-        //   backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.99), rgba(0, 0, 0, 0.99)),url(/escudos/${
-        //     away.badge || "/escudo-vacio.avif"
-        //   })`,
-        // }}
         style={{
           backgroundImage: `linear-gradient(to right, black, ${
-            away.colors ?? "violet"
-          }, black), linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))`,
+            away.colors ?? "var(--color-lof)"
+          }), linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))`,
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <span className={styles.result}>{qty_away_goals}</span>
+          <span className={`${styles.result} shadow-lg shadow-black`}>
+            {qty_away_goals}
+          </span>
           <div
             style={{
               display: "flex",

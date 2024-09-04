@@ -6,18 +6,20 @@
 .table {
   text-align: center;
   width: 100%;
-  /* background-color: #3f7550; */
-  background-color: var(--color-lof);
   border-radius: 4px;
 }
 
-.row {
-  /* border-bottom: 1px solid var(--color-lof); */
+.table_head {
+  background-image: linear-gradient(to bottom, var(--color-lof), black);
+}
+
+/* .row {
+  border-bottom: 1px solid var(--color-lof);
 }
 
 .row:last-child {
   border: none;
-}
+} */
 
 .head_cell,
 .body_cell {

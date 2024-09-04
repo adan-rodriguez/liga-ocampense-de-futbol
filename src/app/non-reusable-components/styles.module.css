@@ -1,4 +1,6 @@
 .details[open] {
+  padding: 1rem !important;
+
   .summary {
     margin-bottom: 1rem;
   }
