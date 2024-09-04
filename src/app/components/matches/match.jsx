@@ -35,7 +35,7 @@ export function Match({ match }) {
         style={{
           backgroundImage: `linear-gradient(to right, ${
             home.colors ?? "var(--color-lof)"
-          }, black), linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))`,
+          }, black), linear-gradient(black, rgb(0, 0, 0, 0.5))`,
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -73,7 +73,7 @@ export function Match({ match }) {
         style={{
           backgroundImage: `linear-gradient(to right, black, ${
             away.colors ?? "var(--color-lof)"
-          }), linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))`,
+          }), linear-gradient(black, rgb(0, 0, 0, 0.5))`,
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>

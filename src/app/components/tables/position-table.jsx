@@ -97,7 +97,7 @@ export function PositionTable({ matches, teams }) {
           {data.map((team, index) => (
             <tr
               style={{
-                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), linear-gradient(to right, ${
+                backgroundImage: `linear-gradient(black, rgba(0, 0, 0, 0.5)), linear-gradient(to right, ${
                   team.colors ?? "black, var(--color-lof)"
                 })`,
               }}
@@ -112,13 +112,14 @@ export function PositionTable({ matches, teams }) {
                 <img
                   src={`escudos/${team.badge || "escudo-vacio.avif"}`}
                   alt={`Escudo de ${team.short_name}`}
-                  style={{ height: "16px", display: "inline-block" }}
+                  style={{ height: "24px", display: "inline-block" }}
                 />
                 <span
                   style={{
                     whiteSpace: "nowrap",
                     marginLeft: "0.5rem",
                     verticalAlign: "middle",
+                    fontWeight: "bold",
                   }}
                 >
                   {team.short_name}

@@ -26,7 +26,7 @@
 }
 
 .badge {
-  height: 16px;
+  height: 24px;
 }
 
 .team_abbr {
@@ -58,7 +58,7 @@
 
 .players {
   font-size: 0.75rem;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .datetime {

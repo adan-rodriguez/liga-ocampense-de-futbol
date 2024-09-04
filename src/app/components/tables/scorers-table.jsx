@@ -1,5 +1,6 @@
 import { getPlayer } from "@/app/lib/players";
 import tableStyles from "./table.module.css";
+import scorersTableStyles from "./scorers-table.module.css";
 import { teams } from "@/app/data/teams";
 
 export async function ScorersTable({ matches }) {
@@ -57,7 +58,7 @@ export async function ScorersTable({ matches }) {
             return (
               <tr
                 style={{
-                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), linear-gradient(to right,  ${
+                  backgroundImage: `linear-gradient(black, rgba(0, 0, 0, 0.5)), linear-gradient(to right,  ${
                     team?.colors ?? "var(--color-lof)"
                   })`,
                 }}
@@ -65,23 +66,39 @@ export async function ScorersTable({ matches }) {
                 key={player.player_id}
               >
                 <td
+                  style={{ textAlign: "left", whiteSpace: "nowrap" }}
                   className={tableStyles.body_cell}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
                 >
                   <img
-                    style={{ height: "16px" }}
-                    src={`escudos/${team?.badge ?? "escudo-vacio.avif"}`}
-                    alt={`Escudo de ${team?.short_name}`}
+                    style={{
+                      height: "24px",
+                      display: "inline-block",
+                      marginRight: "0.5rem",
+                      verticalAlign: "sub",
+                    }}
+                    src={`silueta.png`}
+                    alt={player.firstname + " " + player.lastname}
                   />
-                  <span style={{ whiteSpace: "nowrap" }}>
+                  <span
+                    style={{
+                      whiteSpace: "nowrap",
+                      marginRight: "0.5rem",
+                      fontWeight: "bold",
+                    }}
+                  >
                     {player.firstname} {player.lastname}
                   </span>
+                  <span style={{ fontSize: "0.75rem", opacity: "0.9" }}>
+                    ({team?.abbr})
+                  </span>
                 </td>
-                <td className={tableStyles.body_cell}>{player.goals}</td>
+                <td className={tableStyles.body_cell}>
+                  <span
+                    className={`${scorersTableStyles.goals} shadow-lg shadow-black`}
+                  >
+                    {player.goals}
+                  </span>
+                </td>
               </tr>
             );
           })}
