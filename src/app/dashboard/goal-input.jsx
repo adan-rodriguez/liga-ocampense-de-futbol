@@ -9,7 +9,7 @@ export function GoalInput({ players, goal_data, updateData, deleteGoal }) {
           " " +
           players.find((player) => player.player_id == goal_data.player)
             .lastname
-      : goal_data.player == "0"
+      : goal_data.player === 0
       ? "Gol en contra"
       : ""
   );
@@ -42,7 +42,7 @@ export function GoalInput({ players, goal_data, updateData, deleteGoal }) {
             " " +
             players.find((player) => player.player_id == goal_data.player)
               .lastname
-        : goal_data.player == "0"
+        : goal_data.player === 0
         ? "Gol en contra"
         : ""
     );
@@ -65,7 +65,11 @@ export function GoalInput({ players, goal_data, updateData, deleteGoal }) {
           {(Boolean(goal_data.player) || goal_data.player === 0) && (
             <button
               onClick={() => {
-                updateData({ ...goal_data, player: null, minute: null });
+                updateData({
+                  ...goal_data,
+                  player: undefined,
+                  minute: undefined,
+                });
                 setSearch("");
               }}
               type="button"

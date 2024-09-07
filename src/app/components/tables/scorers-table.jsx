@@ -27,7 +27,7 @@ export async function ScorersTable({ matches }) {
   const scorers = [];
 
   for (const player_id in goalCount) {
-    if (player_id === "0") continue;
+    if (player_id === "0" || player_id === "undefined") continue;
     const { player, error } = await getPlayer(player_id);
     if (error) continue;
 

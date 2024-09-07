@@ -58,7 +58,7 @@ export function Match({ match }) {
         <div className={styles.players}>
           {match.data_home_goals.map((goal) => (
             <p key={goal.goal_id}>
-              {goal.player === null ? (
+              {goal.player === undefined ? (
                 "Desconocido"
               ) : goal.player === 0 ? (
                 "Gol en contra"
@@ -102,7 +102,9 @@ export function Match({ match }) {
         <div className={styles.players} style={{ textAlign: "right" }}>
           {match.data_away_goals.map(async (goal) => (
             <p key={goal.goal_id}>
-              {goal.player === 0 ? (
+              {goal.player === undefined ? (
+                "Desconocido"
+              ) : goal.player === 0 ? (
                 "Gol en contra"
               ) : (
                 <PlayerName player_id={goal.player} />

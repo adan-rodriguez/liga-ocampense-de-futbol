@@ -271,7 +271,11 @@ export function MatchForm({ teams, match }) {
               setDataHomeGoals((prevData) => {
                 return [
                   ...prevData,
-                  { goal_id: prevData.length + 1, player: null, minute: null },
+                  {
+                    goal_id: prevData.length + 1,
+                    player: undefined,
+                    minute: undefined,
+                  },
                 ];
               });
             }}
@@ -315,7 +319,11 @@ export function MatchForm({ teams, match }) {
               setDataAwayGoals((prevData) => {
                 return [
                   ...prevData,
-                  { goal_id: prevData.length + 1, player: null, minute: null },
+                  {
+                    goal_id: prevData.length + 1,
+                    player: undefined,
+                    minute: undefined,
+                  },
                 ];
               });
             }}
