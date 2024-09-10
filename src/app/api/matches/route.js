@@ -98,6 +98,7 @@ export async function POST(request) {
   }
 
   revalidatePath("/");
+  revalidatePath("/dashboard/partidos/editar");
 
   return new Response(
     JSON.stringify({ message: "Partido creado exitosamente" }),

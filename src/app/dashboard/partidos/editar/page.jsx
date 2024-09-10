@@ -8,7 +8,11 @@ export default async function EditMatchesPage() {
 
   if (error) return <p>Ocurrió un error. Regresa más tarde</p>;
 
-  return matches.map((match) => (
+  const sortedMatches = matches.sort(
+    (a, b) => new Date(b.datetime) - new Date(a.datetime)
+  );
+
+  return sortedMatches.map((match) => (
     <div key={match.match_id}>
       <Match match={match} />
       <Link href={`/dashboard/partidos/editar/${match.match_id}`}>Editar</Link>

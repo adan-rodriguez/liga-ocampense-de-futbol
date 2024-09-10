@@ -31,8 +31,8 @@ export const matchSchema = z.object({
     .array(
       z.object({
         goal_id: z.number().int().positive().max(50),
-        player: z.number().int().nonnegative().optional(),
-        minute: z.number().int().positive().max(999).optional(),
+        player: z.number().int().nonnegative().nullable(),
+        minute: z.number().int().positive().max(999).nullable(),
       })
     )
     .max(50)
@@ -41,7 +41,7 @@ export const matchSchema = z.object({
     .array(
       z.object({
         goal_id: z.number().int().positive().max(50),
-        player: z.number().int().nonnegative().optional(),
+        player: z.number().int().nonnegative().nullable(),
         minute: z.number().int().positive().max(999).nullable(),
       })
     )

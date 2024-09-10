@@ -12,6 +12,17 @@ export async function TorneoPlacidoLeloCastillo() {
 
   if (error) return <p>{error}</p>;
 
+  const sortedMatches = matches.sort(
+    (a, b) => new Date(b.datetime) - new Date(a.datetime)
+  );
+
+  const southMatches = sortedMatches.filter((match) =>
+    zones[0].includes(match.home)
+  );
+  const northMatches = sortedMatches.filter((match) =>
+    zones[1].includes(match.home)
+  );
+
   return (
     <section>
       <h2 className="font-black text-2xl">
@@ -19,25 +30,19 @@ export async function TorneoPlacidoLeloCastillo() {
       </h2>
       <section>
         <section className="my-8">
-          <Zone
-            name="Zona Sur"
-            matches={matches.filter((match) => zones[0].includes(match.home))}
-          />
+          <Zone name="Zona Sur" matches={southMatches} />
           <div className="my-8">
             <PositionTable
-              matches={matches.filter((match) => zones[0].includes(match.home))}
+              matches={southMatches}
               teams={teams.filter((team) => zones[0].includes(team.team_id))}
             />
           </div>
         </section>
         <section className="my-8">
-          <Zone
-            name="Zona Norte"
-            matches={matches.filter((match) => zones[1].includes(match.home))}
-          />
+          <Zone name="Zona Norte" matches={northMatches} />
           <div className="my-8">
             <PositionTable
-              matches={matches.filter((match) => zones[1].includes(match.home))}
+              matches={northMatches}
               teams={teams.filter((team) => zones[1].includes(team.team_id))}
             />
           </div>

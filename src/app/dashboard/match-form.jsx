@@ -273,8 +273,8 @@ export function MatchForm({ teams, match }) {
                   ...prevData,
                   {
                     goal_id: prevData.length + 1,
-                    player: undefined,
-                    minute: undefined,
+                    player: null,
+                    minute: null,
                   },
                 ];
               });
@@ -321,8 +321,8 @@ export function MatchForm({ teams, match }) {
                   ...prevData,
                   {
                     goal_id: prevData.length + 1,
-                    player: undefined,
-                    minute: undefined,
+                    player: null,
+                    minute: null,
                   },
                 ];
               });

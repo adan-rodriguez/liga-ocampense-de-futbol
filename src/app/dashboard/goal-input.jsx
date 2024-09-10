@@ -67,8 +67,8 @@ export function GoalInput({ players, goal_data, updateData, deleteGoal }) {
               onClick={() => {
                 updateData({
                   ...goal_data,
-                  player: undefined,
-                  minute: undefined,
+                  player: null,
+                  minute: null,
                 });
                 setSearch("");
               }}
