@@ -24,11 +24,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit}
-        className="shadow-inner shadow-black"
-        style={{ maxWidth: "640px" }}
-      >
+      <form onSubmit={handleSubmit} style={{ maxWidth: "640px" }}>
         <label>
           <span> Email </span>
           <input type="email" name="email" required />

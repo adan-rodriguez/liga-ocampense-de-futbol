@@ -1,3 +1,48 @@
+.summary_btn {
+  border-radius: 4px;
+  padding: 0.5rem;
+  background-color: var(--color-lof);
+  color: white;
+  transition: scale 0.3s;
+  list-style: none;
+  cursor: pointer;
+
+  &:is(:hover, :focus-visible) {
+    scale: 1.05;
+  }
+
+  &:active {
+    translate: 0 2px;
+  }
+}
+
+.menu_link {
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: 0.3s background-color;
+
+  &:is(:hover, :focus-visible) {
+    background-color: color-mix(
+      in hsl shorter hue,
+      var(--color-lof) 50%,
+      black 50%
+    );
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.goal_btn {
+  padding: 0.5rem;
+}
+
+.add_goal_btn[disabled] {
+  cursor: not-allowed;
+  background-color: rgb(var(--color-lof-rgb), 0.5);
+}
+
 .players_list {
   position: absolute;
   z-index: 9999;
@@ -15,4 +60,8 @@
   &:is(:hover, :focus-visible) {
     background-color: #eee;
   }
+}
+
+.lastname {
+  text-transform: uppercase;
 }

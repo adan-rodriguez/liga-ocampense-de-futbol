@@ -223,18 +223,19 @@ export function MatchForm({ teams, match }) {
         />
       </label>
 
-      <label>
+      <label style={{ display: "flex", gap: "0.5rem" }}>
+        <span>Finalizado</span>
         <input
           type="checkbox"
           checked={finalized}
           onChange={() => setFinalized(!finalized)}
+          style={{ width: "24px", height: "24px" }}
         />
       </label>
 
       {finalized && (
         <>
           <GoalsForm
-            label="local"
             team={home}
             goals_data={data_home_goals}
             updateData={(goal_data) => {
@@ -282,7 +283,6 @@ export function MatchForm({ teams, match }) {
           />
 
           <GoalsForm
-            label="visitante"
             team={away}
             goals_data={data_away_goals}
             updateData={(goal_data) => {

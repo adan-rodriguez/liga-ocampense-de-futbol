@@ -6,7 +6,7 @@ export async function FetchingPlayerName({ player_id }) {
 
   return (
     <span>
-      {error ? "Desconocido" : `${player.firstname} ${player.lastname}`}
+      {error ? "Desconocido" : <>{player.firstname + " " + player.lastname}</>}
     </span>
   );
 }
