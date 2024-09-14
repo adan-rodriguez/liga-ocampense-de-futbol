@@ -5,6 +5,7 @@ import { GoalsForm } from "./goals-form";
 import { zones } from "../data/torneo-placido-lelo-castillo";
 import { deleteMatch } from "../lib/matches";
 import { useRouter } from "next/navigation";
+import { Spinner } from "../components/spinner";
 
 export function MatchForm({ teams, match }) {
   const router = useRouter();
@@ -81,18 +82,23 @@ export function MatchForm({ teams, match }) {
     setLoading(false);
   }
 
-  async function handleDelete() {
+  async function handleDelete(match_id) {
+    setLoading(true);
     setError("");
 
-    const { error } = await deleteMatch(match.match_id);
+    if (confirm("Estás seguro de eliminar este partido?")) {
+      const { error } = await deleteMatch(match_id);
 
-    if (error) {
-      setError("Ocurrió un error. Intenta de nuevo más tarde...");
-      return;
+      if (error) {
+        setError("Ocurrió un error. Intenta de nuevo más tarde...");
+        return;
+      }
+
+      alert("Partido eliminado");
+      router.push("/dashboard");
     }
 
-    alert("Partido eliminado");
-    router.push("/dashboard");
+    setLoading(false);
   }
 
   return (
@@ -331,18 +337,23 @@ export function MatchForm({ teams, match }) {
         </>
       )}
       {match ? (
-        <button type="submit" disabled={loading}>
-          {loading ? "Editando partido..." : "Editar partido"}
-        </button>
+        <div
+          style={{ display: "flex", gap: "0.5rem", justifyContent: "center" }}
+        >
+          <button type="submit" disabled={loading}>
+            Editar partido {loading && <Spinner />}
+          </button>
+          <button
+            onClick={async () => await handleDelete(match.match_id)}
+            type="button"
+            disabled={loading}
+          >
+            Eliminar partido {loading && <Spinner />}
+          </button>
+        </div>
       ) : (
         <button type="submit" disabled={loading}>
-          {loading ? "Agregando partido..." : "Agregar partido"}
-        </button>
-      )}
-
-      {match && (
-        <button onClick={handleDelete} type="button">
-          Eliminar partido
+          Agregar partido {loading && <Spinner />}
         </button>
       )}
 

@@ -17,7 +17,7 @@ export const rounds_reference = {
   6: "Fecha 6",
   5: "Fecha 5",
   4: "Fecha 4",
-  3: "Fecha 2",
+  3: "Fecha 3",
   2: "Fecha 2",
   1: "Fecha 1",
 };

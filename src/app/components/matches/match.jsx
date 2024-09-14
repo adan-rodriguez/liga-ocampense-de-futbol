@@ -3,16 +3,20 @@ import styles from "./matches.module.css";
 import { PlayerName } from "./player-name";
 
 export function Match({ match }) {
-  const dateObj = new Date(match.datetime);
-  const formattedDate = dateObj.toLocaleDateString("es-ES", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  });
-  const formattedTime = dateObj.toLocaleTimeString("es-ES", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  let formattedDate, formattedTime;
+
+  if (match.datetime) {
+    const dateObj = new Date(match.datetime);
+    formattedDate = dateObj.toLocaleDateString("es-ES", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    });
+    formattedTime = dateObj.toLocaleTimeString("es-ES", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
 
   const home = teams.find((team) => team.team_id === match.home);
   const away = teams.find((team) => team.team_id === match.away);
@@ -26,9 +30,11 @@ export function Match({ match }) {
       key={match.match_id}
     >
       <div className={styles.datetime}>
-        <time>
-          {formattedDate} {formattedTime}
-        </time>
+        {match.datetime && (
+          <time>
+            {formattedDate} {formattedTime}
+          </time>
+        )}
       </div>
       <div
         className={styles.team}

@@ -103,7 +103,6 @@ function Zone({ name, matches }) {
                 borderRadius: "4px",
                 backgroundColor: "white",
                 color: "black",
-                width: "fit-content",
               }}
               key={round}
               open={shouldOpen}

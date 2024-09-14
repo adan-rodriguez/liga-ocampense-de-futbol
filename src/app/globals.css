@@ -84,5 +84,10 @@ form {
     &:active {
       translate: 0 2px;
     }
+
+    &[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   }
 }
