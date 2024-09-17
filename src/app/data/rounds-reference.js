@@ -2,6 +2,7 @@ export const rounds_reference = {
   final: "Final",
   semifinal: "Semifinal",
   quarter_finals: "Cuartos de Final",
+  round_of_16: "Octavos de final",
   18: "Fecha 18",
   17: "Fecha 17",
   16: "Fecha 16",

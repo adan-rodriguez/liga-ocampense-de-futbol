@@ -8,7 +8,7 @@ export async function ScorersTable({ matches }) {
 
   matches.forEach((match) => {
     // Contabilizar goles de los jugadores en el equipo local
-    match.data_home_goals.forEach((goal) => {
+    match.data_home_goals?.forEach((goal) => {
       if (!goalCount[goal.player]) {
         goalCount[goal.player] = 0;
       }
@@ -16,7 +16,7 @@ export async function ScorersTable({ matches }) {
     });
 
     // Contabilizar goles de los jugadores en el equipo visitante
-    match.data_away_goals.forEach((goal) => {
+    match.data_away_goals?.forEach((goal) => {
       if (!goalCount[goal.player]) {
         goalCount[goal.player] = 0;
       }

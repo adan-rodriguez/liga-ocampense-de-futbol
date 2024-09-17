@@ -3,9 +3,6 @@ import styles from "./styles.module.css";
 import { EditIcon, TrashIcon } from "../components/icons";
 
 export function GoalInput({ players, goal_data, updateData, deleteGoal }) {
-  console.log({ players });
-  console.log({ goal_data });
-
   const [search, setSearch] = useState(
     goal_data.player
       ? players.find((player) => player.player_id == goal_data.player)

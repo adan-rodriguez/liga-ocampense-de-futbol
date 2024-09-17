@@ -58,11 +58,11 @@ export function Match({ match }) {
             className={`${styles.result} shadow-lg shadow-black`}
             style={{ marginLeft: "auto" }}
           >
-            {qty_home_goals}
+            {qty_home_goals ?? "—"}
           </span>
         </div>
         <div className={styles.players}>
-          {match.data_home_goals.map((goal) => (
+          {match.data_home_goals?.map((goal) => (
             <p key={goal.goal_id}>
               {goal.player === null ? (
                 "Desconocido"
@@ -86,7 +86,7 @@ export function Match({ match }) {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <span className={`${styles.result} shadow-lg shadow-black`}>
-            {qty_away_goals}
+            {qty_away_goals ?? "—"}
           </span>
           <div
             style={{
@@ -106,7 +106,7 @@ export function Match({ match }) {
           </div>
         </div>
         <div className={styles.players} style={{ textAlign: "right" }}>
-          {match.data_away_goals.map(async (goal) => (
+          {match.data_away_goals?.map(async (goal) => (
             <p key={goal.goal_id}>
               {goal.player === null ? (
                 "Desconocido"

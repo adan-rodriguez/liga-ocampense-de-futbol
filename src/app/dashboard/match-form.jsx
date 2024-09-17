@@ -153,6 +153,7 @@ export function MatchForm({ teams, match }) {
                 </>
               ) : (
                 <>
+                  <option value="round_of_16">Octavos de Final</option>
                   <option value="quarter_finals">Cuartos de Final</option>
                   <option value="semifinal">Semifinal</option>
                   <option value="final">Final</option>
@@ -336,6 +337,7 @@ export function MatchForm({ teams, match }) {
           />
         </>
       )}
+
       {match ? (
         <div
           style={{ display: "flex", gap: "0.5rem", justifyContent: "center" }}

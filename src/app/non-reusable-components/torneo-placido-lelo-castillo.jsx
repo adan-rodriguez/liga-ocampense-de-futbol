@@ -16,10 +16,37 @@ export async function TorneoPlacidoLeloCastillo() {
     (a, b) => new Date(b.datetime) - new Date(a.datetime)
   );
 
-  const southMatches = sortedMatches.filter((match) =>
+  const finalPhaseMatches = sortedMatches.filter((match) =>
+    ["final", "semifinal", "quarter_final", "round_of_16"].includes(match.round)
+  );
+
+  const zoneMatches = sortedMatches.filter((match) =>
+    [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+    ].includes(match.round)
+  );
+
+  const southMatches = zoneMatches.filter((match) =>
     zones[0].includes(match.home)
   );
-  const northMatches = sortedMatches.filter((match) =>
+  const northMatches = zoneMatches.filter((match) =>
     zones[1].includes(match.home)
   );
 
@@ -28,7 +55,14 @@ export async function TorneoPlacidoLeloCastillo() {
       <h2 className="font-black text-2xl">
         Torneo Plácido &apos;Lelo&apos; Castillo
       </h2>
+      {/* <section className="mt-4">
+        <h3>Fase final</h3>
+        <img src="llave.png" alt="" />
+      </section> */}
       <section>
+        <section className="my-8">
+          <Zone name="Fase Final" matches={finalPhaseMatches} />
+        </section>
         <section className="my-8">
           <Zone name="Zona Sur" matches={southMatches} />
           <div className="my-8">
@@ -49,7 +83,7 @@ export async function TorneoPlacidoLeloCastillo() {
         </section>
       </section>
       <section className="my-8">
-        <ScorersTable matches={matches} />
+        <ScorersTable matches={zoneMatches} />
       </section>
     </section>
   );
@@ -59,7 +93,11 @@ function Zone({ name, matches }) {
   if (matches.length === 0) {
     return (
       <section>
-        <h3>{name}</h3>
+        <h3 className="flex items-center gap-2">
+          <hr aria-hidden="true" className="flex-1 border-[var(--color-lof)]" />
+          <span className="font-bold text-xs">{name}</span>
+          <hr aria-hidden="true" className="flex-1 border-[var(--color-lof)]" />
+        </h3>
         <p>No hay partidos para mostrar</p>
       </section>
     );

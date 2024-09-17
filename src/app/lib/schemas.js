@@ -67,6 +67,7 @@ export const matchSchema = z.object({
     "16",
     "17",
     "18",
+    "round_of_16",
     "quarter_finals",
     "semifinal",
     "final",

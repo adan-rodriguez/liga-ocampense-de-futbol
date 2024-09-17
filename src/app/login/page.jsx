@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { login } from "./login";
+import { Spinner } from "../components/spinner";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
@@ -41,8 +42,20 @@ export default function LoginPage() {
           />
         </label>
 
-        <button disabled={loading}>
-          {loading ? "Ingresando..." : "Ingresar"}
+        <button style={{ position: "relative" }} disabled={loading}>
+          Ingresar{" "}
+          <div
+            style={{
+              position: "absolute",
+              right: "5px",
+              top: "0",
+              bottom: "0",
+              display: "grid",
+              placeItems: "center",
+            }}
+          >
+            {loading && <Spinner />}
+          </div>
         </button>
       </form>
       {error && <p>{error}</p>}

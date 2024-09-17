@@ -7,6 +7,7 @@ export const rounds = [
   "final",
   "semifinal",
   "quarter_finals",
+  "round_of_16",
   "18",
   "17",
   "16",
