@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GoalsForm } from "./goals-form";
 import { zones } from "../data/torneo-placido-lelo-castillo";
 import { deleteMatch } from "../lib/matches";
@@ -101,8 +101,22 @@ export function MatchForm({ teams, match }) {
     setLoading(false);
   }
 
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      if (loading) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [loading]);
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form inert={loading ? "" : null} onSubmit={handleSubmit}>
       <h2>{`${match ? "Editar" : "Agregar"}`} partido</h2>
 
       {!match ? (
@@ -230,13 +244,29 @@ export function MatchForm({ teams, match }) {
         />
       </label>
 
-      <label style={{ display: "flex", gap: "0.5rem" }}>
+      <label
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "0.5rem",
+          // backgroundColor: finalized ? "green" : "#eee",
+          backgroundColor: "#eee",
+          // opacity: finalized ? "1" : "0.5",
+          padding: "0.5rem",
+          borderRadius: "4px",
+          cursor: "pointer",
+        }}
+      >
         <span>Finalizado</span>
         <input
           type="checkbox"
           checked={finalized}
           onChange={() => setFinalized(!finalized)}
-          style={{ width: "24px", height: "24px" }}
+          style={{
+            width: "24px",
+            height: "24px",
+            accentColor: "var(--color-lof)",
+          }}
         />
       </label>
 
@@ -342,20 +372,71 @@ export function MatchForm({ teams, match }) {
         <div
           style={{ display: "flex", gap: "0.5rem", justifyContent: "center" }}
         >
-          <button type="submit" disabled={loading}>
-            Editar partido {loading && <Spinner />}
+          <button
+            type="submit"
+            disabled={loading}
+            style={{ position: "relative" }}
+          >
+            Editar partido{" "}
+            {loading && (
+              <div
+                style={{
+                  position: "absolute",
+                  right: "5px",
+                  top: "0",
+                  bottom: "0",
+                  display: "grid",
+                  placeItems: "center",
+                }}
+              >
+                <Spinner />
+              </div>
+            )}
           </button>
           <button
             onClick={async () => await handleDelete(match.match_id)}
             type="button"
             disabled={loading}
+            style={{ position: "relative" }}
           >
-            Eliminar partido {loading && <Spinner />}
+            Eliminar partido{" "}
+            {loading && (
+              <div
+                style={{
+                  position: "absolute",
+                  right: "5px",
+                  top: "0",
+                  bottom: "0",
+                  display: "grid",
+                  placeItems: "center",
+                }}
+              >
+                <Spinner />
+              </div>
+            )}
           </button>
         </div>
       ) : (
-        <button type="submit" disabled={loading}>
-          Agregar partido {loading && <Spinner />}
+        <button
+          type="submit"
+          disabled={loading}
+          style={{ position: "relative" }}
+        >
+          Agregar partido{" "}
+          {loading && (
+            <div
+              style={{
+                position: "absolute",
+                right: "5px",
+                top: "0",
+                bottom: "0",
+                display: "grid",
+                placeItems: "center",
+              }}
+            >
+              <Spinner />
+            </div>
+          )}
         </button>
       )}
 

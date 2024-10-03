@@ -38,11 +38,6 @@
   padding: 0.5rem;
 }
 
-.add_goal_btn[disabled] {
-  cursor: not-allowed;
-  background-color: rgb(var(--color-lof-rgb), 0.5);
-}
-
 .players_list {
   position: absolute;
   z-index: 9999;

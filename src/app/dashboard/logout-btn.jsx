@@ -23,7 +23,7 @@ export function LogoutBtn() {
 
   return (
     <button onClick={handleLogout} disabled={loading} className={styles.btn}>
-      {loading ? <Spinner /> : <LogoutIcon />}
+      {loading ? <Spinner size={24} /> : <LogoutIcon />}
     </button>
   );
 }

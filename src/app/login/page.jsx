@@ -44,18 +44,20 @@ export default function LoginPage() {
 
         <button style={{ position: "relative" }} disabled={loading}>
           Ingresar{" "}
-          <div
-            style={{
-              position: "absolute",
-              right: "5px",
-              top: "0",
-              bottom: "0",
-              display: "grid",
-              placeItems: "center",
-            }}
-          >
-            {loading && <Spinner />}
-          </div>
+          {loading && (
+            <div
+              style={{
+                position: "absolute",
+                right: "5px",
+                top: "0",
+                bottom: "0",
+                display: "grid",
+                placeItems: "center",
+              }}
+            >
+              <Spinner />
+            </div>
+          )}
         </button>
       </form>
       {error && <p>{error}</p>}
