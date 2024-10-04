@@ -135,13 +135,6 @@ function Zone({ name, matches }) {
           return (
             <details
               name={name}
-              style={{
-                display: "inline-block",
-                padding: "0.5rem",
-                borderRadius: "4px",
-                backgroundColor: "white",
-                color: "black",
-              }}
               key={round}
               open={shouldOpen}
               className={styles.details}

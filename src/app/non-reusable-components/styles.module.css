@@ -1,7 +1,25 @@
-.details[open] {
-  width: 100%;
+.details {
+  display: inline-block;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+  height: 37px;
+  transition: height 1s;
+  overflow: hidden;
 
-  .summary {
-    margin-bottom: 1rem;
+  &[open] {
+    width: 100%;
+    height: auto;
+
+    .summary {
+      margin-bottom: 1rem;
+    }
   }
+}
+
+.details * {
+  transition: display 1s, height 1s, overlay 1s;
+  transition-behavior: allow-discrete;
+  interpolate-size: allow-keywords;
 }

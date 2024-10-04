@@ -6,6 +6,7 @@
   scrollbar-width: thin;
   --color-lof: #7c4ba2;
   --color-lof-rgb: 124, 75, 162;
+  interpolate-size: allow-keywords;
 }
 
 body {
