@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { GoalInput } from "./goal-input";
 import { getPlayers } from "../lib/players";
 import { teams } from "../data/teams";
-import styles from "./styles.module.css";
 import { Spinner } from "../components/spinner";
 import { PlusIcon } from "../components/icons";
 
