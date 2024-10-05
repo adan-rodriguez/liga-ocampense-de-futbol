@@ -249,9 +249,7 @@ export function MatchForm({ teams, match }) {
           display: "flex",
           justifyContent: "space-between",
           gap: "0.5rem",
-          // backgroundColor: finalized ? "green" : "#eee",
           backgroundColor: "#eee",
-          // opacity: finalized ? "1" : "0.5",
           padding: "0.5rem",
           borderRadius: "4px",
           cursor: "pointer",
@@ -379,16 +377,7 @@ export function MatchForm({ teams, match }) {
           >
             Editar partido{" "}
             {loading && (
-              <div
-                style={{
-                  position: "absolute",
-                  right: "5px",
-                  top: "0",
-                  bottom: "0",
-                  display: "grid",
-                  placeItems: "center",
-                }}
-              >
+              <div className="absolute right-[5px] top-0 bottom-0 grid place-items-center">
                 <Spinner />
               </div>
             )}
@@ -401,16 +390,7 @@ export function MatchForm({ teams, match }) {
           >
             Eliminar partido{" "}
             {loading && (
-              <div
-                style={{
-                  position: "absolute",
-                  right: "5px",
-                  top: "0",
-                  bottom: "0",
-                  display: "grid",
-                  placeItems: "center",
-                }}
-              >
+              <div className="absolute right-[5px] top-0 bottom-0 grid place-items-center">
                 <Spinner />
               </div>
             )}
@@ -424,16 +404,7 @@ export function MatchForm({ teams, match }) {
         >
           Agregar partido{" "}
           {loading && (
-            <div
-              style={{
-                position: "absolute",
-                right: "5px",
-                top: "0",
-                bottom: "0",
-                display: "grid",
-                placeItems: "center",
-              }}
-            >
+            <div className="absolute right-[5px] top-0 bottom-0 grid place-items-center">
               <Spinner />
             </div>
           )}

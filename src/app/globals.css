@@ -20,6 +20,10 @@ body {
   background-position: bottom;
 }
 
+:disabled {
+  pointer-events: none;
+}
+
 main {
   max-width: 1024px;
   padding: 1rem;
@@ -29,66 +33,50 @@ main {
 form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   row-gap: 1rem;
-  padding: 1rem;
-  border-radius: 4px;
   color: black;
   background-color: #eeeeee80;
+  width: 100%;
   max-width: 768px;
   margin-inline: auto;
-  width: 100%;
-  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 4px;
 
   h2 {
-    text-align: center;
     font-weight: bold;
   }
 
   label {
+    width: 100%;
+
     input {
       width: 100%;
       padding: 0.5rem;
-      background-color: #eee;
       border-radius: 4px;
-
-      &:disabled {
-        /* cursor: not-allowed;
-        background-color: light-dark(
-          rgba(239, 239, 239, 0.3),
-          rgba(59, 59, 59, 0.3)
-        );
-        color: light-dark(rgb(84, 84, 84), rgb(170, 170, 170));
-        border-color: rgba(118, 118, 118, 0.3); */
-        pointer-events: none;
-      }
     }
   }
 
   select {
     width: 100%;
     padding: 0.5rem;
-    background-color: #eee;
     border-radius: 4px;
   }
+}
 
-  button {
-    align-self: center;
-    padding: 0.5rem 2rem;
-    border-radius: 4px;
-    background-color: var(--color-lof);
-    color: white;
-    transition: scale 0.3s;
+button {
+  position: relative;
+  padding: 0.5rem 2rem;
+  border-radius: 4px;
+  background-color: var(--color-lof);
+  color: white;
+  transition: scale 0.3s;
 
-    &:is(:hover, :focus-visible) {
-      scale: 1.05;
-    }
+  &:is(:hover, :focus-visible) {
+    scale: 1.05;
+  }
 
-    &:active {
-      translate: 0 2px;
-    }
-
-    &:disabled {
-      pointer-events: none;
-    }
+  &:active {
+    translate: 0 2px;
   }
 }

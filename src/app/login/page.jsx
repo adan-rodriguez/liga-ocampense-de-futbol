@@ -25,7 +25,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} style={{ maxWidth: "640px" }}>
+      <form onSubmit={handleSubmit}>
         <label>
           <span> Email </span>
           <input type="email" name="email" required />
@@ -42,19 +42,10 @@ export default function LoginPage() {
           />
         </label>
 
-        <button style={{ position: "relative" }} disabled={loading}>
+        <button disabled={loading}>
           Ingresar{" "}
           {loading && (
-            <div
-              style={{
-                position: "absolute",
-                right: "5px",
-                top: "0",
-                bottom: "0",
-                display: "grid",
-                placeItems: "center",
-              }}
-            >
+            <div className="absolute right-[5px] top-0 bottom-0 grid place-items-center">
               <Spinner />
             </div>
           )}

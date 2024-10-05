@@ -5,27 +5,14 @@ import { EditIcon, PlusIcon } from "../components/icons";
 
 export default function DashboardLayout({ children }) {
   return (
-    <div style={{ display: "flex", gap: "1rem" }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+    <div className="flex gap-4">
+      <div className="flex flex-col gap-2">
         {/* <h1>Bienvenido {email}</h1> */}
-        <details name="dashboard-menu" style={{ position: "relative" }}>
+        <details name="dashboard-menu" className="relative">
           <summary className={styles.summary_btn}>
             <PlusIcon />
           </summary>
-          <div
-            style={{
-              position: "absolute",
-              top: "0",
-              left: "125%",
-              display: "flex",
-              flexDirection: "column",
-              width: "max-content",
-              padding: "0.5rem",
-              backgroundColor: "var(--color-lof)",
-              borderRadius: "4px",
-              zIndex: "999",
-            }}
-          >
+          <div className="absolute top-0 left-[125%] flex flex-col w-max p-2 bg-[var(--color-lof)] rounded z-50">
             <Link
               href="/dashboard/partidos/agregar"
               className={styles.menu_link}
@@ -40,24 +27,11 @@ export default function DashboardLayout({ children }) {
             </Link>
           </div>
         </details>
-        <details name="dashboard-menu" style={{ position: "relative" }}>
+        <details name="dashboard-menu" className="relative">
           <summary className={styles.summary_btn}>
             <EditIcon />
           </summary>
-          <div
-            style={{
-              position: "absolute",
-              top: "0",
-              left: "125%",
-              display: "flex",
-              flexDirection: "column",
-              width: "max-content",
-              padding: "0.5rem",
-              backgroundColor: "var(--color-lof)",
-              borderRadius: "4px",
-              zIndex: "999",
-            }}
-          >
+          <div className="absolute top-0 left-[125%] flex flex-col w-max p-2 bg-[var(--color-lof)] rounded z-50">
             <Link
               href="/dashboard/partidos/editar"
               className={styles.menu_link}
@@ -76,7 +50,7 @@ export default function DashboardLayout({ children }) {
           <LogoutBtn />
         </div>
       </div>
-      <div style={{ flex: "1" }}>{children}</div>
+      <div className="flex-1">{children}</div>
     </div>
   );
 }

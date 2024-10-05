@@ -14,18 +14,11 @@ export default async function EditMatchesPage() {
   );
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <div className="flex flex-col gap-4">
       {sortedMatches.map((match) => (
-        <div style={{ position: "relative" }} key={match.match_id}>
+        <div className="relative" key={match.match_id}>
           <Match match={match} />
-          <div
-            style={{
-              display: "flex",
-              position: "absolute",
-              top: "5px",
-              right: "5px",
-            }}
-          >
+          <div className="flex absolute top-[5px] bottom-[5px]">
             <Link href={`/dashboard/partidos/editar/${match.match_id}`}>
               <EditIcon />
             </Link>

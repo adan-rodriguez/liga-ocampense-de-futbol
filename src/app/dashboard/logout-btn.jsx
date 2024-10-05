@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { logout } from "./logout";
-import styles from "./logout.module.css";
 import { Spinner } from "../components/spinner";
 import { LogoutIcon } from "../components/icons";
 
@@ -22,7 +21,11 @@ export function LogoutBtn() {
   };
 
   return (
-    <button onClick={handleLogout} disabled={loading} className={styles.btn}>
+    <button
+      onClick={handleLogout}
+      disabled={loading}
+      className="p-2 w-full aspect-square grid place-items-center"
+    >
       {loading ? <Spinner size={24} /> : <LogoutIcon />}
     </button>
   );

@@ -5,21 +5,16 @@
   background-color: white;
   color: black;
   height: 37px;
-  transition: height 1s;
+  transition: height 1s, background-color 0.3s;
   overflow: hidden;
 
   &[open] {
     width: 100%;
     height: auto;
+    background-color: #eeeeee80;
 
     .summary {
       margin-bottom: 1rem;
     }
   }
-}
-
-.details * {
-  transition: display 1s, height 1s, overlay 1s;
-  transition-behavior: allow-discrete;
-  interpolate-size: allow-keywords;
 }

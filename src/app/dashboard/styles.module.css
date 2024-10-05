@@ -6,6 +6,9 @@
   transition: scale 0.3s;
   list-style: none;
   cursor: pointer;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
 
   &:is(:hover, :focus-visible) {
     scale: 1.05;
@@ -32,10 +35,6 @@
   &:active {
     opacity: 0.8;
   }
-}
-
-.goal_btn {
-  padding: 0.5rem;
 }
 
 .players_list {

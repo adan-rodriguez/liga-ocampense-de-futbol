@@ -112,14 +112,7 @@ function Zone({ name, matches }) {
         <span className="font-bold text-xs">{name}</span>
         <hr aria-hidden="true" className="flex-1 border-[var(--color-lof)]" />
       </h3>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "0.5rem",
-          marginTop: "2rem",
-        }}
-      >
+      <div className="flex flex-wrap gap-2 mt-8">
         {rounds.map((round) => {
           const filteredMatches = matches.filter(
             (match) => match.round === round
@@ -140,12 +133,7 @@ function Zone({ name, matches }) {
               className={styles.details}
             >
               <summary
-                className={styles.summary}
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "14px",
-                  cursor: "pointer",
-                }}
+                className={`${styles.summary} font-bold text-sm cursor-pointer`}
               >
                 {rounds_reference[round]}
               </summary>

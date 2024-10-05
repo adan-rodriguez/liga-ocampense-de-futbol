@@ -45,12 +45,13 @@ export function GoalsForm({
 
       <div
         style={{
+          width: "100%",
           display: "flex",
           flexDirection: "column",
           gap: "1rem",
           padding: "0.5rem",
           borderRadius: "4px",
-          backgroundColor: "white",
+          backgroundColor: "#eee",
         }}
       >
         <div
@@ -67,7 +68,7 @@ export function GoalsForm({
             disabled={loading}
             onClick={addGoal}
             type="button"
-            className={styles.goal_btn}
+            className="p-2"
           >
             {loading ? <Spinner size={24} /> : <PlusIcon />}
           </button>

@@ -77,7 +77,7 @@ export function GoalInput({ players, goal_data, updateData, deleteGoal }) {
                 setSearch("");
               }}
               type="button"
-              className={styles.goal_btn}
+              className="p-2"
             >
               <EditIcon />
             </button>
@@ -85,7 +85,7 @@ export function GoalInput({ players, goal_data, updateData, deleteGoal }) {
           <button
             onClick={() => deleteGoal(goal_data.goal_id)}
             type="button"
-            className={styles.goal_btn}
+            className="p-2"
           >
             <TrashIcon />
           </button>
