@@ -244,31 +244,33 @@ export function MatchForm({ teams, match }) {
         />
       </label>
 
-      <label
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          gap: "0.5rem",
-          backgroundColor: "#eee",
-          padding: "0.5rem",
-          borderRadius: "4px",
-          cursor: "pointer",
-        }}
-      >
-        <span>Finalizado</span>
-        <input
-          type="checkbox"
-          checked={finalized}
-          onChange={() => setFinalized(!finalized)}
+      {home && away && (
+        <label
           style={{
-            width: "24px",
-            height: "24px",
-            accentColor: "var(--color-lof)",
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "0.5rem",
+            backgroundColor: "#eee",
+            padding: "0.5rem",
+            borderRadius: "4px",
+            cursor: "pointer",
           }}
-        />
-      </label>
+        >
+          <span>Finalizado</span>
+          <input
+            type="checkbox"
+            checked={finalized}
+            onChange={() => setFinalized(!finalized)}
+            style={{
+              width: "24px",
+              height: "24px",
+              accentColor: "var(--color-lof)",
+            }}
+          />
+        </label>
+      )}
 
-      {finalized && (
+      {home && away && finalized && (
         <>
           <GoalsForm
             team={home}

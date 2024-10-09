@@ -1,9 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import { LogoutBtn } from "./logout-btn";
 import styles from "./styles.module.css";
 import { EditIcon, PlusIcon } from "../components/icons";
+import { useEffect } from "react";
 
 export default function DashboardLayout({ children }) {
+  useEffect(() => {
+    document.body.addEventListener("click", () => {
+      document.querySelector("details[open]")?.removeAttribute("open");
+    });
+  }, []);
+
   return (
     <div className="flex gap-4">
       <div className="flex flex-col gap-2">
